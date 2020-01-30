@@ -1,3 +1,4 @@
+import silence_tensorflow
 from repairing_genomic_gaps import build_dataset, build_denoiser
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras_tqdm import TQDMCallback
@@ -36,9 +37,6 @@ with Notipy():
     )
 
     model = build_denoiser(window_size)
-
-    print(train[0][0].shape)
-    print(train[0][1].shape)
 
     history = model.fit_generator(
         train,
