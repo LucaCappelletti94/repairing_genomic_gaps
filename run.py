@@ -37,6 +37,9 @@ with Notipy():
 
     model = build_denoiser(window_size)
 
+    print(train[0][0].shape)
+    print(train[0][1].shape)
+
     history = model.fit_generator(
         train,
         steps_per_epoch=train.steps_per_epoch,
