@@ -9,6 +9,7 @@ from plot_keras_history import plot_history
 max_gap_size = 100
 window_size = 500
 batch_size = 256
+batch_number = 10000
 epochs = 1000
 
 with Notipy():
@@ -19,13 +20,13 @@ with Notipy():
             "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr19",
             "chr20", "chr21", "chr22", "chrX", "chrY"
         ],
-        max_training_samples=batch_size*3,
+        max_training_samples=batch_size*batch_number,
         testing_chromosomes=[
             "chr17",
             "chr18",
             "chrM",
         ],
-        max_testing_samples=batch_size*3,
+        max_testing_samples=batch_size*batch_number,
         max_gap_size=max_gap_size,
         window_size=window_size,
         gaps_threshold=0.4,
