@@ -59,8 +59,7 @@ with Notipy():
                 verbose=0,
                 save_best_only=True,
                 save_weights_only=False,
-                mode='min',
-                period=1
+                mode='min'
             )
         ],
         validation_data=test,

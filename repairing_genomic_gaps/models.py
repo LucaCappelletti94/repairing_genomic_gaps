@@ -86,7 +86,7 @@ def build_decoder(
         padding='same',
         name='decoder_output'
     )(x)
-    reshape = Reshape(input_shape)(decoder_output)
+    reshape = Reshape((-1, *input_shape))(decoder_output)
 
     # Instantiate Decoder Model
     return Model(
@@ -102,6 +102,8 @@ def build_autoencoder(
     filters: List[int],
     kernels: List[Tuple[int, int]],
     strides: List[int]
+
+
 ):
     inputs, encoder_shape, encoder = build_encoder(
         input_shape=input_shape,
