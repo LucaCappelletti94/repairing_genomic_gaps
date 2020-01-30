@@ -8,7 +8,7 @@ from plot_keras_history import plot_history
 
 max_gap_size = 100
 window_size = 500
-batch_size = 512
+batch_size = 256
 epochs = 1000
 
 with Notipy():
