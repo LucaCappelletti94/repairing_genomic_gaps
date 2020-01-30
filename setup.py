@@ -28,7 +28,7 @@ def find_version(*file_paths):
 
 __version__ = find_version("repairing_genomic_gaps", "__version__.py")
 
-test_deps =[
+test_deps = [
     "pytest",
     "pytest-cov",
     "coveralls",
@@ -59,6 +59,9 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     tests_require=test_deps,
     # Add here the package dependencies
-    install_requires=[],
+    install_requires=[
+        "keras_synthetic_genome_sequence",
+        "ucsc_genomes_downloader"
+    ],
     extras_require=extras,
 )
