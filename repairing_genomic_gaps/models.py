@@ -30,7 +30,8 @@ def build_encoder(
 
     """
     inputs = Input(shape=input_shape, name='encoder_input')
-    x = encoder_blocks(inputs, filters, kernels, strides)
+    reshape = Reshape((*input_shape, 1))(inputs)
+    x = encoder_blocks(reshape, filters, kernels, strides)
     # Shape info needed to build Decoder Model
     shape = tf.keras.backend.int_shape(x)[1:]
     # Generate the latent vector
@@ -43,6 +44,7 @@ def build_encoder(
 
 def build_decoder(
     latent_dim: int,
+    input_shape: Tuple,
     encoder_shape: Tuple,
     filters: List[int],
     kernels: List[Tuple[int, int]],
@@ -84,11 +86,12 @@ def build_decoder(
         padding='same',
         name='decoder_output'
     )(x)
+    reshape = Reshape(input_shape)(decoder_output)
 
     # Instantiate Decoder Model
     return Model(
         decoder_input,
-        decoder_output,
+        reshape,
         name='decoder'
     )
 
@@ -110,6 +113,7 @@ def build_autoencoder(
 
     decoder = build_decoder(
         latent_dim=latent_dim,
+        input_shape=input_shape,
         encoder_shape=encoder_shape,
         filters=filters,
         strides=strides,
