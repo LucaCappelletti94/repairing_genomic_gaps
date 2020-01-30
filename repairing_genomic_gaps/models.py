@@ -86,7 +86,7 @@ def build_decoder(
         padding='same',
         name='decoder_output'
     )(x)
-    reshape = Reshape((-1, *input_shape))(decoder_output)
+    reshape = Reshape(input_shape)(decoder_output)
 
     # Instantiate Decoder Model
     return Model(
