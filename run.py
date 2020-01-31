@@ -9,8 +9,6 @@ from repairing_genomic_gaps import build_dataset, build_denoiser
 max_gap_size = 100
 window_size = 500
 batch_size = 250
-train_batch_number = 1000*batch_size
-test_batch_number = 10*batch_size
 epochs = 1000
 
 with Notipy():

@@ -59,6 +59,9 @@ def build_dataset(
     training_sequences = tasselize_bed(genome.filled(
         chromosomes=training_chromosomes
     ), window_size=window_size)
+
+    print(training_sequences.shape)
+
     # Obtaining testing bed file
     testing_sequences = tasselize_bed(genome.filled(
         chromosomes=testing_chromosomes

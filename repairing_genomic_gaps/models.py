@@ -102,8 +102,6 @@ def build_autoencoder(
     filters: List[int],
     kernels: List[Tuple[int, int]],
     strides: List[int]
-
-
 ):
     inputs, encoder_shape, encoder = build_encoder(
         input_shape=input_shape,
