@@ -35,7 +35,7 @@ with Notipy():
 
     history = model.fit_generator(
         train,
-        steps_per_epoch=train.steps_per_epoch/10,
+        steps_per_epoch=train.steps_per_epoch/15,
         epochs=epochs,
         shuffle=True,
         verbose=1,
