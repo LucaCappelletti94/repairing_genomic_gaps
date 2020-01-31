@@ -8,9 +8,7 @@ from keras_synthetic_genome_sequence import GapSequence
 def build_dataset(
     assembly: str,
     training_chromosomes: List[str],
-    max_training_samples: int,
     testing_chromosomes: List[str],
-    max_testing_samples: int,
     max_gap_size: int,
     window_size: int,
     gaps_threshold: float,
@@ -25,12 +23,8 @@ def build_dataset(
         Genomic assembly from which to extract sequences.
     training_chromosomes: List[str],
         List of chromosomes to use for training set.
-    max_training_samples:int,
-        Max nmber of sampled windows to use for training.
     testing_chromosomes: List[str],
         List of chromosomes to use for test set.
-    max_testing_samples:int,
-        Max nmber of sampled windows to use for testing.
     max_gap_size: int,
         Maximum gap size to use.
     window_size: int,
@@ -65,12 +59,10 @@ def build_dataset(
     training_sequences = tasselize_bed(genome.filled(
         chromosomes=training_chromosomes
     ), window_size=window_size)
-    training_sequences = training_sequences.sample(n=max_training_samples)
     # Obtaining testing bed file
     testing_sequences = tasselize_bed(genome.filled(
         chromosomes=testing_chromosomes
     ), window_size=window_size)
-    testing_sequences = testing_sequences.sample(n=max_testing_samples)
     # Rendering training genomic gaps
     training_gap_sequence = GapSequence(
         assembly=assembly,

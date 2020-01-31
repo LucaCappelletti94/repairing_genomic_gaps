@@ -1,17 +1,16 @@
 import silence_tensorflow
-from repairing_genomic_gaps import build_dataset, build_denoiser
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-from keras_tqdm import TQDMCallback
 from multiprocessing import cpu_count
 from notipy_me import Notipy
 import pandas as pd
 from plot_keras_history import plot_history
+from repairing_genomic_gaps import build_dataset, build_denoiser
 
 max_gap_size = 100
 window_size = 500
 batch_size = 250
-train_batch_number = 10000
-test_batch_number = 10
+train_batch_number = 1000*batch_size
+test_batch_number = 10*batch_size
 epochs = 1000
 
 with Notipy():
@@ -22,13 +21,11 @@ with Notipy():
             "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr19",
             "chr20", "chr21", "chr22", "chrX", "chrY"
         ],
-        max_training_samples=batch_size*train_batch_number,
         testing_chromosomes=[
             "chr17",
             "chr18",
             "chrM",
         ],
-        max_testing_samples=batch_size*test_batch_number,
         max_gap_size=max_gap_size,
         window_size=window_size,
         gaps_threshold=0.4,
@@ -40,12 +37,11 @@ with Notipy():
 
     history = model.fit_generator(
         train,
-        steps_per_epoch=train.steps_per_epoch,
+        steps_per_epoch=train.steps_per_epoch/10,
         epochs=epochs,
         shuffle=True,
-        verbose=0,
+        verbose=1,
         callbacks=[
-            TQDMCallback(),
             EarlyStopping(
                 monitor='loss',
                 min_delta=0.0001,

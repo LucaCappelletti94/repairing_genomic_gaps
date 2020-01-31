@@ -10,9 +10,7 @@ def test_build_dataset():
     train, test = build_dataset(
         assembly="hg19",
         training_chromosomes=["chr1"],
-        max_training_samples=batch_size*3,
         testing_chromosomes=["chr18"],
-        max_testing_samples=batch_size*3,
         max_gap_size=max_gap_size,
         window_size=window_size,
         gaps_threshold=0.4,
@@ -31,7 +29,7 @@ def test_build_dataset():
 
     model.fit_generator(
         train,
-        steps_per_epoch=train.steps_per_epoch,
+        steps_per_epoch=2,
         epochs=2,
         shuffle=True,
         verbose=0,
