@@ -133,4 +133,8 @@ def build_autoencoder(
         optimizer='nadam'
     )
 
+    encoder.summary()
+    decoder.summary()
+    autoencoder.summary()
+
     return autoencoder

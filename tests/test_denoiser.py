@@ -4,13 +4,13 @@ from multiprocessing import cpu_count
 
 
 def test_build_dataset():
-    max_gap_size = 100
-    window_size = 500
+    max_gap_size = 10
+    window_size = 20
     batch_size = 8
     train, test = build_dataset(
         assembly="hg19",
-        training_chromosomes=["chr1"],
-        testing_chromosomes=["chr18"],
+        training_chromosomes=["chr17"],
+        testing_chromosomes=["chrM"],
         max_gap_size=max_gap_size,
         window_size=window_size,
         gaps_threshold=0.4,
@@ -37,7 +37,7 @@ def test_build_dataset():
             TQDMCallback()
         ],
         validation_data=test,
-        validation_steps=test.steps_per_epoch,
+        validation_steps=2,
         workers=cpu_count()//2,
         use_multiprocessing=True
     )
