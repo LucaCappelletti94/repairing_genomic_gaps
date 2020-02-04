@@ -6,8 +6,8 @@ import pandas as pd
 from plot_keras_history import plot_history
 from repairing_genomic_gaps import build_dataset, build_denoiser
 
-max_gap_size = 100
-window_size = 500
+max_gap_size = 3
+window_size = 200
 batch_size = 250
 epochs = 1000
 
@@ -32,6 +32,7 @@ with Notipy():
     )
 
     model = build_denoiser(window_size)
+
 
     history = model.fit_generator(
         train,
