@@ -7,7 +7,7 @@ def build_denoiser(
     return build_autoencoder(
         input_shape=(window_size, 4),
         latent_dim=100,
-        filters=[128, 64, 32],
-        kernels=[(12, 4), (6, 4), (3, 2)],
-        strides=[(1, 1), (2, 2), (2, 2)]
+        filters=[64, 32, 16, 8],
+        kernels=[(9, 4), (6, 4), (3, 2), (3, 1)],
+        strides=[(2, 1), (2, 2), (2, 2), (1, 1)]
     )
