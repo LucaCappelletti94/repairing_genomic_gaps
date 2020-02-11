@@ -1,0 +1,10 @@
+{
+    "email": "luca.cappelletti@studenti.unimi.it",
+    "start_email": "yes",
+    "task name": "Denoiser autoencoder",
+    "recipients": "luca.cappelletti@studenti.unimi.it,tommaso.fontana.96@gmail.com",
+    "report_timeout_unit": "hours",
+    "report_timeout": "12",
+    "port": 465,
+    "smtp_server": "smtp.unimi.it"
+}
