@@ -5,7 +5,7 @@ from multiprocessing import cpu_count
 
 def test_build_dataset():
     max_gap_size = 10
-    window_size = 20
+    window_size = 40
     batch_size = 8
     train, test = build_dataset(
         assembly="hg19",

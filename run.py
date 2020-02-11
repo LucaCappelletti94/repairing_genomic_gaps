@@ -12,6 +12,9 @@ batch_size = 250
 epochs = 1000
 
 with Notipy():
+
+    model = build_denoiser(window_size)
+    
     train, test = build_dataset(
         assembly="hg19",
         training_chromosomes=[
@@ -31,9 +34,6 @@ with Notipy():
         seed=42
     )
 
-    model = build_denoiser(window_size)
-
-
     history = model.fit_generator(
         train,
         steps_per_epoch=train.steps_per_epoch/15,
@@ -50,7 +50,7 @@ with Notipy():
                 restore_best_weights=True
             ),
             ModelCheckpoint(
-                "best_model.hdf5",
+                "best_small_model.hdf5",
                 monitor='val_loss',
                 verbose=0,
                 save_best_only=True,
