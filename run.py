@@ -6,6 +6,7 @@ import pandas as pd
 from plot_keras_history import plot_history
 from repairing_genomic_gaps import build_dataset, build_denoiser
 
+saved_weights_path = "best_small_model.hdf5"
 max_gap_size = 3
 window_size = 200
 batch_size = 250
@@ -15,6 +16,10 @@ with Notipy():
 
     model = build_denoiser(window_size)
     
+    if saved_weights_path != "":
+        model.load_weights(saved_weights_path)
+        print("Old Weights loaded from {}".format(saved_weights_path))
+
     train, test = build_dataset(
         assembly="hg19",
         training_chromosomes=[
@@ -33,6 +38,7 @@ with Notipy():
         batch_size=batch_size,
         seed=42
     )
+
 
     history = model.fit_generator(
         train,
