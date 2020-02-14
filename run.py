@@ -67,7 +67,7 @@ with Notipy():
         validation_data=test,
         validation_steps=test.steps_per_epoch,
         workers=cpu_count()//2,
-        use_multiprocessing=True
+        use_multiprocessing=False
     ).history
     pd.DataFrame(
         history
