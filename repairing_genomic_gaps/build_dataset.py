@@ -3,8 +3,9 @@ from keras_synthetic_genome_sequence.utils import get_gaps_statistics
 from ucsc_genomes_downloader import Genome
 from ucsc_genomes_downloader.utils import tasselize_bed
 from keras_synthetic_genome_sequence import GapSequence
+from .utils import cache
 
-
+@cache()
 def build_dataset(
     assembly: str,
     training_chromosomes: List[str],

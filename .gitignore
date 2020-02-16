@@ -14,6 +14,8 @@ __pycache__
 
 .coverage*
 
+cache
+
 coverage.xml
 genomes
 .pytest_cache
