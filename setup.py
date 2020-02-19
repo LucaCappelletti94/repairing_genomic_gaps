@@ -63,7 +63,8 @@ setup(
     # Add here the package dependencies
     install_requires=[
         "keras_synthetic_genome_sequence",
-        "ucsc_genomes_downloader"
+        "ucsc_genomes_downloader",
+        "dict_hash"
     ],
     extras_require=extras,
 )
