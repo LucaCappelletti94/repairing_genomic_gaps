@@ -48,7 +48,7 @@ setup(
     description="Experiment on the possibility of repairing genomic gaps using auto-encoders.",
     long_description=long_description,
     url="https://github.com/LucaCappelletti94/repairing_genomic_gaps",
-    author="Luca Cappelletti",
+    author="Luca Cappelletti, Tommaso Fontana",
     author_email="cappelletti.luca94@gmail.com",
     # Choose your license
     license='MIT',
