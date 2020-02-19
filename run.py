@@ -56,7 +56,7 @@ with Notipy():
                 restore_best_weights=True
             ),
             ModelCheckpoint(
-                "best_small_model.hdf5",
+                saved_weights_path,
                 monitor='val_loss',
                 verbose=0,
                 save_best_only=True,
@@ -72,4 +72,4 @@ with Notipy():
     pd.DataFrame(
         history
     ).to_csv("history.csv")
-    plot_history(history, path="standard.png")
+    plot_history(history, path="history.png")
