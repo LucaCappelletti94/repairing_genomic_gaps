@@ -25,41 +25,29 @@ from tensorflow.keras.layers import Input, Flatten, Dense, Reshape, Conv2DTransp
 
 from repairing_genomic_gaps.utils import axis_softmax, axis_categorical
 
-saved_weights_path = "best_single.hdf5"
+saved_weights_path = ""
 max_gap_size = 3
 window_size = 201   
-batch_size = 250
+batch_size = 1024
 epochs = 1000
 
 
 inputs = Input(shape=(window_size, 4))
 reshape = Reshape((window_size, 4, 1))(inputs)
 
-i = Conv2D(32, (10, 4), padding="same", activation="relu")(reshape)
-o = Conv2D(32, (10, 4), padding="same", activation="relu")(i)
-x = add([i, o])
+x = Conv2D(32, (10, 2), activation="relu")(reshape)
+x = Conv2D(64, (10, 2), activation="relu")(x)
+x = BatchNormalization()(x)
+x = Conv2D(32, (10, 1), activation="relu")(x)
+x = Conv2D(16, (10, 1), activation="relu")(x)
 x = BatchNormalization()(x)
 x = MaxPool2D((4, 1))(x)
 
-i = Conv2D(32, (5, 4), padding="same", activation="relu")(x)
-o = Conv2D(32, (5, 4), padding="same", activation="relu")(i)
-x = add([i, o])
-x = BatchNormalization()(x)
-x = MaxPool2D((4, 1))(x)
+x = Flatten()(x)
 
-i = Conv2D(32, (4, 4), padding="same", activation="relu")(x)
-o = Conv2D(32, (4, 4), padding="same", activation="relu")(i)
-x = add([i, o])
-x = BatchNormalization()(x)
-x = MaxPool2D((4, 1))(x)
-
-i = Conv2D(16, (4, 4), padding="same", activation="relu")(x)
-o = Conv2D(16, (4, 4), padding="same", activation="relu")(i)
-x = add([i, o])
-x = BatchNormalization()(x)
-x = MaxPool2D((3, 1))(x)
-
-outputs = Conv2D(1, (4, 4), padding="same", activation="softmax")(x)
+x = Dense(32, activation="relu")(x)
+x = Dense(16, activation="relu")(x)
+outputs = Dense(4, activation="softmax")(x)
 
 model = Model(inputs=inputs, outputs=outputs)
 
@@ -96,21 +84,8 @@ train, test = build_dataset(
     seed=42
 )
 
-class SingleNucleotide(Sequence):
-    def __init__(self, sequence, window_size):
-        self.sequence = sequence
-        self.window_size = window_size
-
-    def __len__(self):
-        return len(self.sequence)
-
-    def __getitem__(self, key):
-        x, y = self.sequence[key]
-        i = floor(window_size / 2)
-        return (x, y[:, i])
-
 history = model.fit_generator(
-    SingleNucleotide(train, window_size),
+    train,
     steps_per_epoch=train.steps_per_epoch/15,
     epochs=epochs,
     shuffle=True,
@@ -133,7 +108,7 @@ history = model.fit_generator(
             mode='min'
         )
     ],
-    validation_data=SingleNucleotide(test, window_size),
+    validation_data=test,
     validation_steps=test.steps_per_epoch,
     workers=cpu_count()//2,
     use_multiprocessing=False
