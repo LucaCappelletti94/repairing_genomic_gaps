@@ -35,31 +35,31 @@ epochs = 1000
 inputs = Input(shape=(window_size, 4))
 reshape = Reshape((window_size, 4, 1))(inputs)
 
-x = BatchNormalization()(reshape)
-i = Conv2D(16, (5, 4), padding="same", activation="relu")(x)
-o = Conv2D(16, (5, 4), padding="same", activation="relu")(x)
+i = Conv2D(32, (10, 4), padding="same", activation="relu")(reshape)
+o = Conv2D(32, (10, 4), padding="same", activation="relu")(i)
 x = add([i, o])
-x = MaxPool2D((2, 2))(x)
+x = BatchNormalization()(x)
+x = MaxPool2D((4, 1))(x)
 
-i = Conv2D(32, (5, 2), padding="same", activation="relu")(x)
-o = Conv2D(32, (5, 2), padding="same", activation="relu")(x)
+i = Conv2D(32, (5, 4), padding="same", activation="relu")(x)
+o = Conv2D(32, (5, 4), padding="same", activation="relu")(i)
 x = add([i, o])
-x = MaxPool2D((2, 2))(x)
+x = BatchNormalization()(x)
+x = MaxPool2D((4, 1))(x)
 
-i = Conv2D(32, (4, 1), padding="same", activation="relu")(x)
-o = Conv2D(32, (4, 1), padding="same", activation="relu")(x)
+i = Conv2D(32, (4, 4), padding="same", activation="relu")(x)
+o = Conv2D(32, (4, 4), padding="same", activation="relu")(i)
 x = add([i, o])
-x = MaxPool2D((2, 1))(x)
+x = BatchNormalization()(x)
+x = MaxPool2D((4, 1))(x)
 
-i = Conv2D(16, (4, 1), padding="same", activation="relu")(x)
-o = Conv2D(16, (4, 1), padding="same", activation="relu")(x)
+i = Conv2D(16, (4, 4), padding="same", activation="relu")(x)
+o = Conv2D(16, (4, 4), padding="same", activation="relu")(i)
 x = add([i, o])
-x = MaxPool2D((2, 1))(x)
+x = BatchNormalization()(x)
+x = MaxPool2D((3, 1))(x)
 
-x = Flatten()(x)
-x = Dense(32, activation="relu")(x)
-x = Dense(16, activation="relu")(x)
-outputs = Dense(4, activation="softmax")(x)
+outputs = Conv2D(1, (4, 4), padding="same", activation="softmax")(x)
 
 model = Model(inputs=inputs, outputs=outputs)
 
@@ -71,6 +71,7 @@ model.compile(
     ]
 )
 model.summary()
+
 
 if saved_weights_path and os.path.exists(saved_weights_path):
     model.load_weights(saved_weights_path)
