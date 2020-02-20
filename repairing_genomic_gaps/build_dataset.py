@@ -1,7 +1,7 @@
 from typing import List, Tuple
 from keras_synthetic_genome_sequence.utils import get_gaps_statistics
 from ucsc_genomes_downloader import Genome
-from ucsc_genomes_downloader.utils import tasselize_bed
+from ucsc_genomes_downloader.utils import tessellate_bed
 from keras_synthetic_genome_sequence import GapSequence
 from .utils import cache
 
@@ -48,6 +48,7 @@ def build_dataset(
         max_gap_size=max_gap_size,
         window_size=window_size
     )
+    print("CULO", len(mean))
     print("Using {number} gaps for generating synthetic gaps.".format(
         number=number
     ))
@@ -57,11 +58,11 @@ def build_dataset(
         chromosomes=training_chromosomes+testing_chromosomes
     )
     # Obtaining training bed file
-    training_sequences = tasselize_bed(genome.filled(
+    training_sequences = tessellate_bed(genome.filled(
         chromosomes=training_chromosomes
     ), window_size=window_size)
     # Obtaining testing bed file
-    testing_sequences = tasselize_bed(genome.filled(
+    testing_sequences = tessellate_bed(genome.filled(
         chromosomes=testing_chromosomes
     ), window_size=window_size)
     # Rendering training genomic gaps

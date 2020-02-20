@@ -8,7 +8,7 @@ from repairing_genomic_gaps import build_dataset, build_denoiser
 
 saved_weights_path = "best_small_model.hdf5"
 max_gap_size = 3
-window_size = 200
+window_size = 201
 batch_size = 250
 epochs = 1000
 
