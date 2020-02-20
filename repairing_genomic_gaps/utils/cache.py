@@ -1,5 +1,6 @@
 
 import os
+import inspect
 from pickle import dump, load
 from dict_hash import sha256
 
@@ -7,7 +8,7 @@ def cache(cache_path="./cache/{function_name}/{_hash}.pkl"):
     def cache_decorator(func):
         def wrapped(*args, **kwargs):
             # Calc the hash of the parameters
-            _hash = sha256({"args":args, "kwargs":kwargs})
+            _hash = sha256({"args":args, "kwargs":kwargs, "source":inspect.getsourcelines(func)})
             path = cache_path.format(_hash=_hash, function_name=func.__name__)
             # ensure that the cache folder exist
             os.makedirs(os.path.dirname(path), exist_ok=True)
