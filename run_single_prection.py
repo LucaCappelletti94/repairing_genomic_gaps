@@ -10,7 +10,7 @@ from repairing_genomic_gaps import build_dataset, build_denoiser
 
 from keras_synthetic_genome_sequence import GapSequence
 
-from tensorflow.keras.layers import Input, Reshape, LeakyReLU, add
+from tensorflow.keras.layers import Input, Reshape, add
 from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization
 from tensorflow.keras.metrics import AUC
 
@@ -25,7 +25,6 @@ from tensorflow.keras.layers import Input, Flatten, Dense, Reshape, Conv2DTransp
 
 from repairing_genomic_gaps.utils import axis_softmax, axis_categorical
 
-saved_weights_path = ""
 max_gap_size = 3
 window_size = 500   
 batch_size = 1024
@@ -46,10 +45,10 @@ x = MaxPool2D((4, 1))(x)
 x = Flatten()(x)
 
 x = Dense(32, activation="relu")(x)
-x = Dense(16, activation="relu")(x)
+x = Dense(32, activation="relu")(x)
 outputs = Dense(4, activation="softmax")(x)
 
-model = Model(inputs=inputs, outputs=outputs)
+model = Model(inputs=inputs, outputs=outputs, name="single_gap_predictor")
 
 model.compile(
     optimizer=Nadam(),
@@ -60,12 +59,13 @@ model.compile(
 )
 model.summary()
 
+saved_weights_path = "best_weights_{}.hdf5".format(model.name)
 
 if saved_weights_path and os.path.exists(saved_weights_path):
     model.load_weights(saved_weights_path)
     print("Old Weights loaded from {}".format(saved_weights_path))
 
-train, test = build_dataset(
+train, test = build_dataset_single(
     assembly="hg19",
     training_chromosomes=[
         "chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9",
@@ -94,7 +94,7 @@ history = model.fit_generator(
         EarlyStopping(
             monitor='val_loss',
             min_delta=0.0001,
-            patience=10,
+            patience=5,
             verbose=0,
             mode='min',
             restore_best_weights=True
@@ -115,5 +115,5 @@ history = model.fit_generator(
 ).history
 pd.DataFrame(
     history
-).to_csv("history.csv")
-plot_history(history, path="history.png")
+).to_csv("history_{}.csv".format(model.name))
+plot_history(history, path="history_{}.png".format(model.name))
