@@ -27,7 +27,7 @@ from repairing_genomic_gaps.utils import axis_softmax, axis_categorical
 
 saved_weights_path = ""
 max_gap_size = 3
-window_size = 201   
+window_size = 500   
 batch_size = 1024
 epochs = 1000
 
@@ -92,7 +92,7 @@ history = model.fit_generator(
     verbose=1,
     callbacks=[
         EarlyStopping(
-            monitor='loss',
+            monitor='val_loss',
             min_delta=0.0001,
             patience=10,
             verbose=0,
@@ -111,7 +111,7 @@ history = model.fit_generator(
     validation_data=test,
     validation_steps=test.steps_per_epoch,
     workers=cpu_count()//2,
-    use_multiprocessing=False
+    use_multiprocessing=True
 ).history
 pd.DataFrame(
     history
