@@ -6,7 +6,7 @@ import pandas as pd
 import os
 from math import floor
 from plot_keras_history import plot_history
-from repairing_genomic_gaps import build_dataset, build_denoiser
+from repairing_genomic_gaps import build_dataset_single, build_denoiser
 
 from keras_synthetic_genome_sequence import GapSequence
 
