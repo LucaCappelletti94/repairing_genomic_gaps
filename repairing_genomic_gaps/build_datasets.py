@@ -122,15 +122,6 @@ def build_dataset_single(
     ---------------------------
     Return Tuple of GapSequences.
     """
-    # Obtaining gaps statistic from given assembly
-    number, mean, covariance = get_gaps_statistics(
-        assembly=assembly,
-        max_gap_size=max_gap_size,
-        window_size=window_size
-    )
-    print("Using {number} gaps for generating synthetic gaps.".format(
-        number=number
-    ))
     # Retrieving and loading the assembly for required chromosomes
     genome = Genome(
         assembly=assembly,
