@@ -8,7 +8,6 @@ def build_autoenc_dataset(window_size, batch_size=2048):
             "chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9",
             "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr19",
             "chr20", "chr21", "chr22", "chrX", "chrY"
-            "chr1"
         ],
         testing_chromosomes=[
             "chr17",
