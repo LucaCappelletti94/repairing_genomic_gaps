@@ -1,5 +1,5 @@
 import silence_tensorflow
-
+from notipy_me import Notipy
 from repairing_genomic_gaps import build_autoenc_dataset, build_autoencoder, train_model
 
 WINDOWS_SIZE = 1000
@@ -12,5 +12,6 @@ model = build_autoencoder(
         strides=[(5, 1), (5, 2), (2, 2), (1, 1)]
     )
 
-train, test = build_autoenc_dataset(WINDOWS_SIZE)
-model = train_model(model, train, test)
+with Notipy():
+    train, test = build_autoenc_dataset(WINDOWS_SIZE)
+    model = train_model(model, train, test)

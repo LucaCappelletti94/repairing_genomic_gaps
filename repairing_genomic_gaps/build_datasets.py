@@ -2,7 +2,7 @@ from typing import List, Tuple
 from keras_synthetic_genome_sequence.utils import get_gaps_statistics
 from ucsc_genomes_downloader import Genome
 from ucsc_genomes_downloader.utils import tessellate_bed
-from keras_synthetic_genome_sequence import GapSequence, SingleGapSequence
+from keras_synthetic_genome_sequence import GapSequence, SingleGapSequence, SingleGapNoiseSequence
 from .utils import cache
 
 @cache()
@@ -42,15 +42,6 @@ def build_dataset(
     ---------------------------
     Return Tuple of GapSequences.
     """
-    # Obtaining gaps statistic from given assembly
-    number, mean, covariance = get_gaps_statistics(
-        assembly=assembly,
-        max_gap_size=max_gap_size,
-        window_size=window_size
-    )
-    print("Using {number} gaps for generating synthetic gaps.".format(
-        number=number
-    ))
     # Retrieving and loading the assembly for required chromosomes
     genome = Genome(
         assembly=assembly,
@@ -65,22 +56,16 @@ def build_dataset(
         chromosomes=testing_chromosomes
     ), window_size=window_size)
     # Rendering training genomic gaps
-    training_gap_sequence = GapSequence(
+    training_gap_sequence = SingleGapNoiseSequence(
         assembly=assembly,
         bed=training_sequences,
-        gaps_mean=mean,
-        gaps_covariance=covariance,
-        gaps_threshold=gaps_threshold,
         batch_size=batch_size,
         seed=seed
     )
     # Rendering testing genomic gaps
-    testing_gap_sequence = GapSequence(
+    testing_gap_sequence = SingleGapNoiseSequence(
         assembly=assembly,
         bed=testing_sequences,
-        gaps_mean=mean,
-        gaps_covariance=covariance,
-        gaps_threshold=gaps_threshold,
         batch_size=batch_size,
         seed=seed
     )

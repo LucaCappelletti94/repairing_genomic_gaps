@@ -1,6 +1,6 @@
 import silence_tensorflow
-from repairing_genomic_gaps import build_cnn_dataset, train_model
 from notipy_me import Notipy
+from repairing_genomic_gaps import build_cnn_dataset, train_model
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Reshape, add
