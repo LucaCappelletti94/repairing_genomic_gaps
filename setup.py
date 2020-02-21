@@ -65,7 +65,7 @@ setup(
     install_requires=[
         "keras_synthetic_genome_sequence>=1.0.6",
         "dict_hash",
-        "plot_kears_history>=1.1.19"
+        "plot_keras_history>=1.1.19"
     ],
     extras_require=extras,
 )
