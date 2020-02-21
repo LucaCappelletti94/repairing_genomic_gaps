@@ -93,7 +93,6 @@ def build_dataset_single(
     testing_chromosomes: List[str],
     max_gap_size: int,
     window_size: int,
-    gaps_threshold: float,
     batch_size: int,
     seed: int
 ) -> Tuple[GapSequence, GapSequence]:
@@ -160,3 +159,4 @@ def build_dataset_single(
         seed=seed
     )
     return training_gap_sequence, testing_gap_sequence
+
