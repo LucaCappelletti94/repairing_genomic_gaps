@@ -24,26 +24,26 @@ def train_model(model, train, test, epochs=1000):
         epochs=epochs,
         shuffle=True,
         verbose=1,
-        callbacks=[
-            EarlyStopping(
-                monitor='val_loss',
-                min_delta=0.0001,
-                patience=5,
-                verbose=0,
-                mode='min',
-                restore_best_weights=True
-            ),
-            ModelCheckpoint(
-                saved_weights_path,
-                monitor='val_loss',
-                verbose=0,
-                save_best_only=True,
-                save_weights_only=False,
-                mode='min'
-            )
-        ],
-        validation_data=test,
-        validation_steps=test.steps_per_epoch,
+        # callbacks=[
+        #     EarlyStopping(
+        #         monitor='val_loss',
+        #         min_delta=0.0001,
+        #         patience=5,
+        #         verbose=0,
+        #         mode='min',
+        #         restore_best_weights=True
+        #     ),
+        #     ModelCheckpoint(
+        #         saved_weights_path,
+        #         monitor='val_loss',
+        #         verbose=0,
+        #         save_best_only=True,
+        #         save_weights_only=False,
+        #         mode='min'
+        #     )
+        # ],
+        # validation_data=test,
+        # validation_steps=test.steps_per_epoch,
         workers=cpu_count()//2,
         use_multiprocessing=True
     ).history
