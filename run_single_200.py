@@ -26,7 +26,7 @@ from tensorflow.keras.layers import Input, Flatten, Dense, Reshape, Conv2DTransp
 from repairing_genomic_gaps.utils import axis_softmax, axis_categorical
 
 max_gap_size = 3
-window_size = 201   
+window_size = 200 
 batch_size = 1024
 epochs = 1000
 
@@ -34,14 +34,11 @@ epochs = 1000
 inputs = Input(shape=(window_size, 4))
 reshape = Reshape((window_size, 4, 1))(inputs)
 
-x = Conv2D(64, (10, 2), activation="relu")(reshape)
+x = Conv2D(32, (10, 2), activation="relu")(reshape)
 x = Conv2D(64, (10, 2), activation="relu")(x)
 x = BatchNormalization()(x)
 x = Conv2D(32, (10, 1), activation="relu")(x)
-x = Conv2D(32, (10, 1), activation="relu")(x)
-x = BatchNormalization()(x)
-x = Conv2D(32, (10, 1), activation="relu")(x)
-x = Conv2D(32, (10, 1), activation="relu")(x)
+x = Conv2D(16, (10, 1), activation="relu")(x)
 x = BatchNormalization()(x)
 x = MaxPool2D((4, 1))(x)
 
@@ -49,10 +46,9 @@ x = Flatten()(x)
 
 x = Dense(32, activation="relu")(x)
 x = Dense(32, activation="relu")(x)
-x = Dense(32, activation="relu")(x)
 outputs = Dense(4, activation="softmax")(x)
 
-model = Model(inputs=inputs, outputs=outputs, name="single_gap_201")
+model = Model(inputs=inputs, outputs=outputs, name="single_gap_200")
 
 model.compile(
     optimizer=Nadam(),
