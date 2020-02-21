@@ -6,10 +6,10 @@ WINDOWS_SIZE = 1000
 
 model = build_autoencoder(
         input_shape=(WINDOWS_SIZE, 4),
-        latent_dim=100,
+        latent_dim=200,
         filters=[64, 32, 16, 8],
-        kernels=[(9, 4), (6, 4), (3, 2), (3, 1)],
-        strides=[(2, 1), (2, 2), (2, 2), (1, 1)]
+        kernels=[(20, 4), (10, 4), (10, 2), (10, 1)],
+        strides=[(5, 1), (5, 2), (2, 2), (1, 1)]
     )
 
 train, test = build_autoenc_dataset(WINDOWS_SIZE)
