@@ -35,7 +35,8 @@ test_deps = [
     "validate_version_code",
     "codacy-coverage",
     "silence_tensorflow",
-    "keras_tqdm"
+    "keras_tqdm",
+    "notipy_me"
 ]
 
 extras = {
@@ -64,7 +65,7 @@ setup(
     install_requires=[
         "keras_synthetic_genome_sequence>=1.0.6",
         "dict_hash",
-        "notipy_me"
+        "plot_kears_history>=1.1.19"
     ],
     extras_require=extras,
 )

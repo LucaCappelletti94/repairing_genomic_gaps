@@ -133,7 +133,7 @@ def build_autoencoder(
     autoencoder = Model(
         inputs,
         decoder(encoder(inputs)),
-        name='autoenc_{}'.format(input_shape[0])
+        name='cae_{}'.format(input_shape[0])
     )
 
     autoencoder.compile(

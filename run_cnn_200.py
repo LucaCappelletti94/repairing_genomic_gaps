@@ -39,5 +39,6 @@ model.compile(
 )
 model.summary()
 
-train, test = build_cnn_dataset(WINDOWS_SIZE)
-model = train_model(model, train, test)
+with Notipy():
+    train, test = build_cnn_dataset(WINDOWS_SIZE)
+    model = train_model(model, train, test)

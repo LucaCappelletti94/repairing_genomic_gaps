@@ -1,5 +1,6 @@
 import silence_tensorflow
 from repairing_genomic_gaps import build_cnn_dataset, train_model
+from notipy_me import Notipy
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Reshape, add
@@ -42,5 +43,6 @@ model.compile(
 )
 model.summary()
 
-train, test = build_cnn_dataset(WINDOWS_SIZE)
-model = train_model(model, train, test)
+with Notipy():
+    train, test = build_cnn_dataset(WINDOWS_SIZE)
+    model = train_model(model, train, test)
