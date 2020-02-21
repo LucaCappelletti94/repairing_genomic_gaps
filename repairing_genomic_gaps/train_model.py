@@ -12,7 +12,11 @@ def train_model(model, train, test, epochs=1000):
     if os.path.exists(saved_weights_path):
         model.load_weights(saved_weights_path)
         print("Old Weights loaded from {}".format(saved_weights_path))
-        
+
+    model_json = model.to_json()
+    with open("./models/{name}/model_{name}.json".format(name=model.name), "w") as json_file:
+        json_file.write(model_json)
+
     history = model.fit_generator(
         train,
         steps_per_epoch=train.steps_per_epoch/15,
