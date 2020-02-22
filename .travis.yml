@@ -28,7 +28,7 @@ after_script:
 script:
 - rm -rf .coverage
 - coverage erase
-- pytest -s --cov=repairing_genomic_gaps --cov-report xml:coverage.xml
+- pytest --cov=repairing_genomic_gaps --cov-report xml:coverage.xml
 - coverage combine --append || true
 - coverage report
 - coverage xml
