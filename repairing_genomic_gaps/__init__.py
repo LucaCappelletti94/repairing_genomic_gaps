@@ -1,13 +1,13 @@
-from .build_datasets import build_dataset
-from .autoencoder_model import build_autoencoder
-from .build_cnn_dataset import build_cnn_dataset
-from .build_autoenc_dataset import build_autoenc_dataset
+from .datasets import build_multivariate_dataset_cae, build_multivariate_dataset_cnn, build_synthetic_dataset_cae, build_synthetic_dataset_cnn
+from .models import cnn_200, cnn_500, cnn_1000, cae_200, cae_500, cae_1000
 from .train_model import train_model
 
 __all__ = [
     "train_model",
-    "build_dataset",
-    "build_autoencoder",
-    "build_cnn_dataset",
-    "build_autoenc_dataset",
+    "build_multivariate_dataset_cae",
+    "build_multivariate_dataset_cnn",
+    "build_synthetic_dataset_cae",
+    "build_synthetic_dataset_cnn",
+    "cnn_200", "cnn_500", "cnn_1000",
+    "cae_200", "cae_500", "cae_1000"
 ]
