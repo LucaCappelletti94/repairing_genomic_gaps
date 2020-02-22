@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Model
-from repairing_genomic_gaps import build_autoencoder
+from .autoencoder_model import build_autoencoder
 
 
 def cae_1000() -> Model:

@@ -3,7 +3,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Reshape
 from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization
 
-def cnn_1000():
+def cnn_1000() -> Model:
     inputs = Input(shape=(1000, 4))
     reshape = Reshape((1000, 4, 1))(inputs)
 

@@ -15,7 +15,10 @@ __pycache__
 .coverage*
 
 cache
-
-coverage.xml
+variables
 genomes
+test_models
+
+.ipynb_checkpoints
+coverage.xml
 .pytest_cache

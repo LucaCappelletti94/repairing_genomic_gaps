@@ -1,10 +1,12 @@
 
 import numpy as np
 import pandas as pd
+from ..utils import cache
 from typing import List, Tuple, Dict
 from ucsc_genomes_downloader import Genome
 from tensorflow.keras.utils import Sequence
 from ucsc_genomes_downloader.utils import tessellate_bed
+from keras_synthetic_genome_sequence.utils import get_gaps_statistics
 from keras_synthetic_genome_sequence import SingleGapNoiseSequence, SingleGapSequence
 
 
@@ -57,7 +59,6 @@ def build_multivariate_dataset_sequence(
         seed=seed
     )
 
-
 def build_multivariate_dataset(
     window_size: int,
     keras_sequence_class: Sequence,
@@ -69,6 +70,7 @@ def build_multivariate_dataset(
     ),
     testing_chromosomes: List[str] = ("chr17", "chr18"),
     gaps_threshold: float=0.4,
+    max_gap_size: int = 3,
     batch_size: int = 1024,
     seed: int = 42
 ) -> Tuple:
@@ -137,6 +139,7 @@ def build_multivariate_dataset(
     return training_gap_sequence, testing_gap_sequence
 
 
+@cache()
 def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[SingleGapNoiseSequence, SingleGapNoiseSequence]:
     """Return SingleGapNoiseSequence for training and testing.
 
@@ -147,6 +150,7 @@ def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[Single
     """
     return build_multivariate_dataset(window_size, SingleGapNoiseSequence, **kwargs)
 
+@cache()
 def build_multivariate_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[SingleGapSequence, SingleGapSequence]:
     """Return SingleGapSequence for training and testing.
 

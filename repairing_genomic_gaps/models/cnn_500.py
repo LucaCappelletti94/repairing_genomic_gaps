@@ -3,7 +3,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Reshape
 from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization
 
-def cnn_500():
+def cnn_500() -> Model:
     inputs = Input(shape=(500, 4))
     reshape = Reshape((500, 4, 1))(inputs)
 
