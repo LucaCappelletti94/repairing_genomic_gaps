@@ -17,6 +17,7 @@ __pycache__
 cache
 variables
 genomes
+test_models
 
 .ipynb_checkpoints
 coverage.xml
