@@ -97,12 +97,6 @@ def build_decoder(
     )
 
 
-def check_strides(strides, input_shape):
-    product = np.prod(strides,axis=0)
-    for a, b in zip(product, input_shape):
-        if b % a:
-            raise ValueError("Given strides are not multiple of the given input shape")
-
 def build_autoencoder(
     input_shape: Tuple,
     latent_dim: int,
@@ -110,8 +104,6 @@ def build_autoencoder(
     kernels: List[Tuple[int, int]],
     strides: List[int]
 ):
-
-    check_strides(strides, input_shape)
     inputs, encoder_shape, encoder = build_encoder(
         input_shape=input_shape,
         latent_dim=latent_dim,

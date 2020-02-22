@@ -96,8 +96,7 @@ def build_multivariate_dataset(
     """
     # Retrieving and loading the assembly for required chromosomes
     genome = Genome(
-        assembly=assembly,
-        chromosomes=training_chromosomes+testing_chromosomes
+        assembly=assembly
     )
     # Obtaining gaps statistic from given assembly
     number, gaps_mean, gaps_covariance = get_gaps_statistics(
