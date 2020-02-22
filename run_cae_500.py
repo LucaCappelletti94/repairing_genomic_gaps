@@ -14,5 +14,5 @@ if __name__ == "__main__":
         )
 
     with Notipy():
-        train, test = build_autoenc_dataset(WINDOWS_SIZE, batch_size=2048)
+        train, test = build_autoenc_dataset(WINDOWS_SIZE, batch_size=1024)
         model = train_model(model, train, test)
