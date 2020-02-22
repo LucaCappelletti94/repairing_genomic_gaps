@@ -6,7 +6,9 @@ from multiprocessing import cpu_count
 def test_build_dataset():
     max_gap_size = 10
     window_size = 40
-    batch_size = 8
+    train, test = build_autoenc_dataset(WINDOWS_SIZE, batch_size=8)
+    model = train_model(model, train, test)
+
     train, test = build_dataset(
         assembly="hg19",
         training_chromosomes=["chr17"],
