@@ -26,6 +26,7 @@ def cnn_500() -> Model:
     outputs = Dense(4, activation="softmax")(x)
 
     model = Model(inputs=inputs, outputs=outputs, name="cnn_500")
+    model.summary()
     model.compile(
         optimizer="nadam",
         loss="categorical_crossentropy",
