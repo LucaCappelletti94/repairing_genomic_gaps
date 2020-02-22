@@ -1,6 +1,7 @@
 
 import numpy as np
 import pandas as pd
+from ..utils import cache
 from typing import List, Tuple, Dict
 from ucsc_genomes_downloader import Genome
 from tensorflow.keras.utils import Sequence
@@ -58,6 +59,7 @@ def build_multivariate_dataset_sequence(
     )
 
 
+@cache()
 def build_multivariate_dataset(
     window_size: int,
     keras_sequence_class: Sequence,

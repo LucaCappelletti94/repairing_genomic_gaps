@@ -1,9 +1,11 @@
-from tensorflow.keras.utils import Sequence
+
+import pandas as pd
+from ..utils import cache
 from typing import List, Tuple, Dict
 from ucsc_genomes_downloader import Genome
+from tensorflow.keras.utils import Sequence
 from ucsc_genomes_downloader.utils import tessellate_bed
 from keras_synthetic_genome_sequence import SingleGapNoiseSequence, SingleGapSequence
-import pandas as pd
 
 
 def build_synthetic_dataset_sequence(
@@ -49,7 +51,7 @@ def build_synthetic_dataset_sequence(
         seed=seed
     )
 
-
+@cache()
 def build_synthetic_dataset(
     window_size: int,
     keras_sequence_class: Sequence,

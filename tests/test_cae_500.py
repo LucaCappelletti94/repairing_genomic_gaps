@@ -9,5 +9,5 @@ def test_cae_500():
         testing_chromosomes=["chrM"],
         batch_size=8
     )
-    train_model(model, train, test, epochs=1)
+    train_model(model, train, test, epochs=1, path="./test_models")
 
