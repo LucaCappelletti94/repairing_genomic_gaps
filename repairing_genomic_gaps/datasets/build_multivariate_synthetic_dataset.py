@@ -59,8 +59,6 @@ def build_multivariate_dataset_sequence(
         seed=seed
     )
 
-
-@cache()
 def build_multivariate_dataset(
     window_size: int,
     keras_sequence_class: Sequence,
@@ -141,6 +139,7 @@ def build_multivariate_dataset(
     return training_gap_sequence, testing_gap_sequence
 
 
+@cache()
 def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[SingleGapNoiseSequence, SingleGapNoiseSequence]:
     """Return SingleGapNoiseSequence for training and testing.
 
@@ -151,6 +150,7 @@ def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[Single
     """
     return build_multivariate_dataset(window_size, SingleGapNoiseSequence, **kwargs)
 
+@cache()
 def build_multivariate_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[SingleGapSequence, SingleGapSequence]:
     """Return SingleGapSequence for training and testing.
 
