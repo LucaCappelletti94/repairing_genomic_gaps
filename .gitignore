@@ -15,7 +15,8 @@ __pycache__
 .coverage*
 
 cache
+variables
+genomes
 
 coverage.xml
-genomes
 .pytest_cache
