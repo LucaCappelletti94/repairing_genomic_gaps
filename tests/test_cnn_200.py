@@ -2,7 +2,6 @@ from repairing_genomic_gaps import cnn_200, build_synthetic_dataset_cnn, train_m
 
 def test_cnn_200():
     model = cnn_200()
-    model.summary()
     train, test = build_synthetic_dataset_cnn(
         200,
         training_chromosomes=["chrM"],

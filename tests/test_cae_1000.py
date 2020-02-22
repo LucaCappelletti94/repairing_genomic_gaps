@@ -2,7 +2,6 @@ from repairing_genomic_gaps import cae_1000, build_synthetic_dataset_cae, train_
 
 def test_cae_1000():
     model = cae_1000()
-    model.summary()
     train, test = build_synthetic_dataset_cae(
         1000,
         training_chromosomes=["chrM"],
