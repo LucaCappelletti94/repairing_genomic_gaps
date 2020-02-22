@@ -6,6 +6,7 @@ from typing import List, Tuple, Dict
 from ucsc_genomes_downloader import Genome
 from tensorflow.keras.utils import Sequence
 from ucsc_genomes_downloader.utils import tessellate_bed
+from keras_synthetic_genome_sequence.utils import get_gaps_statistics
 from keras_synthetic_genome_sequence import SingleGapNoiseSequence, SingleGapSequence
 
 
@@ -71,6 +72,7 @@ def build_multivariate_dataset(
     ),
     testing_chromosomes: List[str] = ("chr17", "chr18"),
     gaps_threshold: float=0.4,
+    max_gap_size: int = 3,
     batch_size: int = 1024,
     seed: int = 42
 ) -> Tuple:
