@@ -19,6 +19,7 @@ variables
 genomes
 test_models
 
+htmlcov
 .ipynb_checkpoints
 coverage.xml
 .pytest_cache
