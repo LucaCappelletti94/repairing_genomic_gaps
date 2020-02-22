@@ -112,7 +112,7 @@ def build_multivariate_dataset(
         window_size=window_size,
         keras_sequence_class=keras_sequence_class,
         chromosomes=training_chromosomes,
-        batch_size=batch_size,\
+        batch_size=batch_size,
         genome=genome,
         gaps_mean=gaps_mean,
         gaps_covariance=gaps_covariance,
@@ -123,7 +123,7 @@ def build_multivariate_dataset(
         window_size=window_size,
         keras_sequence_class=keras_sequence_class,
         chromosomes=testing_chromosomes,
-        batch_size=batch_size,\
+        batch_size=batch_size,
         genome=genome,
         gaps_mean=gaps_mean,
         gaps_covariance=gaps_covariance,
