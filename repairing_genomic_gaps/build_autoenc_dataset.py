@@ -11,8 +11,7 @@ def build_autoenc_dataset(window_size, batch_size=2048):
         ],
         testing_chromosomes=[
             "chr17",
-            "chr18",
-            "chr17"
+            "chr18"
         ],
         max_gap_size=1,
         window_size=window_size,

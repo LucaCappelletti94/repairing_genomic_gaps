@@ -11,7 +11,7 @@ def build_cnn_dataset(window_size, batch_size=2048):
         ],
         testing_chromosomes=[
             "chr17",
-            "chr18",
+            "chr18"
         ],
         max_gap_size=1,
         window_size=window_size,
