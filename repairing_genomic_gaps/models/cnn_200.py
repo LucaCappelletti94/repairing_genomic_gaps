@@ -22,4 +22,12 @@ def cnn_200():
     outputs = Dense(4, activation="softmax")(x)
 
     model = Model(inputs=inputs, outputs=outputs, name=f"cnn_200")
+
+    model.compile(
+        optimizer="nadam",
+        loss="categorical_crossentropy",
+        metrics=[
+            "categorical_accuracy",
+        ]
+    )
     return model
