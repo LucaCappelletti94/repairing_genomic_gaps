@@ -20,6 +20,7 @@ genomes
 test_models
 
 htmlcov
+.benchmarks
 .ipynb_checkpoints
 coverage.xml
 .pytest_cache
