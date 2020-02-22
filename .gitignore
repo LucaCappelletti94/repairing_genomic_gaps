@@ -18,5 +18,6 @@ cache
 variables
 genomes
 
+.ipynb_checkpoints
 coverage.xml
 .pytest_cache
