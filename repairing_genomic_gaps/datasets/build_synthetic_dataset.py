@@ -5,13 +5,12 @@ from typing import List, Tuple, Dict
 from ucsc_genomes_downloader import Genome
 from tensorflow.keras.utils import Sequence
 from ucsc_genomes_downloader.utils import tessellate_bed
-from keras_synthetic_genome_sequence import SingleGapNoiseSequence, SingleGapSequence
+from keras_synthetic_genome_sequence import SingleGapCenterSequence, SingleGapWindowsSequence
 
 
 def build_synthetic_dataset_sequence(
     window_size: int,
     keras_sequence_class: Sequence,
-    assembly: str,
     chromosomes: List[str],
     batch_size: int,
     genome: Genome,
@@ -25,8 +24,6 @@ def build_synthetic_dataset_sequence(
         Windows size to extend gaps to.
     keras_sequence_class: Sequence,
         The class of Sequence to use to build the train and test sequences.
-    assembly: str,
-        Genomic assembly from which to extract sequences.
     chromosomes: List[str],
         List of chromosomes to use.
     batch_size: int
@@ -43,7 +40,7 @@ def build_synthetic_dataset_sequence(
     """
     # Rendering genomic gaps
     return keras_sequence_class(
-        assembly=assembly,
+        assembly=genome,
         bed=tessellate_bed(genome.filled(
             chromosomes=chromosomes
         ), window_size=window_size),
@@ -97,7 +94,6 @@ def build_synthetic_dataset(
     training = build_synthetic_dataset_sequence(
         window_size,
         keras_sequence_class,
-        assembly,
         training_chromosomes,
         batch_size,
         genome,
@@ -107,7 +103,6 @@ def build_synthetic_dataset(
     testing = build_synthetic_dataset_sequence(
         window_size,
         keras_sequence_class,
-        assembly,
         testing_chromosomes,
         batch_size,
         genome,
@@ -118,23 +113,23 @@ def build_synthetic_dataset(
 
 
 @cache()
-def build_synthetic_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[SingleGapNoiseSequence, SingleGapNoiseSequence]:
-    """Return SingleGapNoiseSequence for training and testing.
+def build_synthetic_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[SingleGapWindowsSequence, SingleGapWindowsSequence]:
+    """Return SingleGapWindowsSequence for training and testing.
 
     Parameters
     --------------------------
     window_size: int,
         Windows size to use for rendering the synthetic datasets.
     """
-    return build_synthetic_dataset(window_size, SingleGapNoiseSequence, **kwargs)
+    return build_synthetic_dataset(window_size, SingleGapWindowsSequence, **kwargs)
 
 @cache()
-def build_synthetic_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[SingleGapSequence, SingleGapSequence]:
-    """Return SingleGapSequence for training and testing.
+def build_synthetic_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[SingleGapCenterSequence, SingleGapCenterSequence]:
+    """Return SingleGapCenterSequence for training and testing.
 
     Parameters
     --------------------------
     window_size: int,
         Windows size to use for rendering the synthetic datasets.
     """
-    return build_synthetic_dataset(window_size, SingleGapSequence, **kwargs)
+    return build_synthetic_dataset(window_size, SingleGapCenterSequence, **kwargs)

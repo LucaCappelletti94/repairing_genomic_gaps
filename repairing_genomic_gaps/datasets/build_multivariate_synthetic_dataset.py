@@ -7,13 +7,12 @@ from ucsc_genomes_downloader import Genome
 from tensorflow.keras.utils import Sequence
 from ucsc_genomes_downloader.utils import tessellate_bed
 from keras_synthetic_genome_sequence.utils import get_gaps_statistics
-from keras_synthetic_genome_sequence import SingleGapNoiseSequence, SingleGapSequence
+from keras_synthetic_genome_sequence import MultivariateGapCenterSequence, MultivariateGapWindowsSequence
 
 
 def build_multivariate_dataset_sequence(
     window_size: int,
     keras_sequence_class: Sequence,
-    assembly: str,
     chromosomes: List[str],
     batch_size: int,
     genome: Genome,
@@ -30,8 +29,6 @@ def build_multivariate_dataset_sequence(
         Windows size to extend gaps to.
     keras_sequence_class: Sequence,
         The class of Sequence to use to build the train and test sequences.
-    assembly: str,
-        Genomic assembly from which to extract sequences.
     chromosomes: List[str],
         List of chromosomes to use.
     batch_size: int
@@ -48,7 +45,7 @@ def build_multivariate_dataset_sequence(
     """
     # Rendering genomic gaps
     return keras_sequence_class(
-        assembly=assembly,
+        assembly=genome,
         bed=tessellate_bed(genome.filled(
             chromosomes=chromosomes
         ), window_size=window_size),
@@ -97,25 +94,24 @@ def build_multivariate_dataset(
     ---------------------------
     Return Tuple of Sequences.
     """
+    # Retrieving and loading the assembly for required chromosomes
+    genome = Genome(
+        assembly=assembly,
+        chromosomes=training_chromosomes+testing_chromosomes
+    )
     # Obtaining gaps statistic from given assembly
     number, gaps_mean, gaps_covariance = get_gaps_statistics(
-        assembly=assembly,
+        genome=genome,
         max_gap_size=max_gap_size,
         window_size=window_size
     )
     print("Using {number} gaps for generating multivariate gaps.".format(
         number=number
     ))
-    # Retrieving and loading the assembly for required chromosomes
-    genome = Genome(
-        assembly=assembly,
-        chromosomes=training_chromosomes+testing_chromosomes
-    )
     # Rendering training genomic gaps
     training_gap_sequence = build_multivariate_dataset_sequence(
         window_size=window_size,
         keras_sequence_class=keras_sequence_class,
-        assembly=assembly,
         chromosomes=training_chromosomes,
         batch_size=batch_size,\
         genome=genome,
@@ -127,7 +123,6 @@ def build_multivariate_dataset(
     testing_gap_sequence = build_multivariate_dataset_sequence(
         window_size=window_size,
         keras_sequence_class=keras_sequence_class,
-        assembly=assembly,
         chromosomes=testing_chromosomes,
         batch_size=batch_size,\
         genome=genome,
@@ -140,23 +135,23 @@ def build_multivariate_dataset(
 
 
 @cache()
-def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[SingleGapNoiseSequence, SingleGapNoiseSequence]:
-    """Return SingleGapNoiseSequence for training and testing.
+def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[MultivariateGapCenterSequence, MultivariateGapCenterSequence]:
+    """Return MultivariateGapCenterSequence for training and testing.
 
     Parameters
     --------------------------
     window_size: int,
         Windows size to use for rendering the multivariate datasets.
     """
-    return build_multivariate_dataset(window_size, SingleGapNoiseSequence, **kwargs)
+    return build_multivariate_dataset(window_size, MultivariateGapCenterSequence, **kwargs)
 
 @cache()
-def build_multivariate_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[SingleGapSequence, SingleGapSequence]:
-    """Return SingleGapSequence for training and testing.
+def build_multivariate_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[MultivariateGapWindowsSequence, MultivariateGapWindowsSequence]:
+    """Return MultivariateGapWindowsSequence for training and testing.
 
     Parameters
     --------------------------
     window_size: int,
         Windows size to use for rendering the multivariate datasets.
     """
-    return build_multivariate_dataset(window_size, SingleGapSequence, **kwargs)
+    return build_multivariate_dataset(window_size, MultivariateGapWindowsSequence, **kwargs)
