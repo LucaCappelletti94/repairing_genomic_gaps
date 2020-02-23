@@ -1,22 +1,25 @@
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Reshape
-from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization
+from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization, Activation
 
 def cnn_500() -> Model:
     inputs = Input(shape=(500, 4))
     reshape = Reshape((500, 4, 1))(inputs)
 
     x = Conv2D(32, (10, 2), activation="relu")(reshape)
-    x = Conv2D(64, (10, 2), activation="relu")(x)
+    x = Conv2D(64, (10, 2))(x)
     x = BatchNormalization()(x)
+    x = Activation("relu")(x)
     x = Conv2D(64, (10, 1), activation="relu")(x)
-    x = Conv2D(32, (10, 1), activation="relu")(x)
+    x = Conv2D(32, (10, 1))(x)
     x = BatchNormalization()(x)
+    x = Activation("relu")(x)
     x = MaxPool2D((2, 1))(x)
     x = Conv2D(32, (10, 1), activation="relu")(x)
-    x = Conv2D(16, (10, 1), activation="relu")(x)
+    x = Conv2D(16, (10, 1))(x)
     x = BatchNormalization()(x)
+    x = Activation("relu")(x)
     x = MaxPool2D((4, 1))(x)
 
     x = Flatten()(x)

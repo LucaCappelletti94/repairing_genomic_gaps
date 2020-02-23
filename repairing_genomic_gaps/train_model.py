@@ -1,22 +1,21 @@
 import os
 import pandas as pd
 from multiprocessing import cpu_count
-from plot_keras_history import plot_history
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from .utils import get_model_weights_path, get_model_json_path, get_model_history_path
 
 
 def train_model(model, train, test, epochs=1000, path="./models"):
-    saved_weights_path = "{path}/{name}/best_weights_{name}.hdf5".format(path=path, name=model.name)
+    weights_path = get_model_weights_path(model, path)
+    json_path = get_model_json_path(model, path)
 
-    os.makedirs(os.path.dirname(saved_weights_path), exist_ok=True)
-    if os.path.exists(saved_weights_path):
-        model.load_weights(saved_weights_path)
-        print("Old Weights loaded from {}".format(saved_weights_path))
+    os.makedirs(os.path.dirname(weights_path), exist_ok=True)
+    if os.path.exists(weights_path):
+        model.load_weights(weights_path)
+        print("Old Weights loaded from {}".format(weights_path))
 
-    model_json = model.to_json()
-    with open("{path}/{name}/model_{name}.json".format(path=path, name=model.name), "w") as json_file:
-        json_file.write(model_json)
-
+    with open(json_path, "w") as f:
+        f.write(model.to_json())
     
     history = model.fit_generator(
         train,
@@ -34,7 +33,7 @@ def train_model(model, train, test, epochs=1000, path="./models"):
                 restore_best_weights=True
             ),
             ModelCheckpoint(
-                saved_weights_path,
+                weights_path,
                 monitor='val_loss',
                 verbose=0,
                 save_best_only=True,
@@ -47,8 +46,9 @@ def train_model(model, train, test, epochs=1000, path="./models"):
         workers=cpu_count()//2,
         use_multiprocessing=True
     ).history
+
     pd.DataFrame(
         history
-    ).to_csv("{path}/{name}/history_{name}.csv".format(path=path, name=model.name))
-    plot_history(history, path="{path}/{name}/history_{name}.png".format(path=path, name=model.name))
+    ).to_csv(get_model_history_path(model, path))
+
     return model
