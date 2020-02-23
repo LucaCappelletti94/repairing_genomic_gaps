@@ -1,16 +1,9 @@
 import silence_tensorflow
+from notipy_me import Notipy
+from repairing_genomic_gaps import cae_500, build_synthetic_dataset_cae, train_model
 
-from repairing_genomic_gaps import build_autoenc_dataset, build_autoencoder, train_model
-
-WINDOWS_SIZE = 500
-
-model = build_autoencoder(
-        input_shape=(WINDOWS_SIZE, 4),
-        latent_dim=150,
-        filters=[64, 32, 16, 8],
-        kernels=[(10, 4), (10, 4), (10, 2), (10, 1)],
-        strides=[(2, 1), (5, 2), (2, 2), (1, 1)]
-    )
-
-train, test = build_autoenc_dataset(WINDOWS_SIZE)
-model = train_model(model, train, test)
+if __name__ == "__main__":
+    with Notipy():
+        model = cae_500()
+        train, test = build_synthetic_dataset_cae(500, batch_size=512)
+        model = train_model(model, train, test)

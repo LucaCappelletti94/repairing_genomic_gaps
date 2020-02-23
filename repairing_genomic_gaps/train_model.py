@@ -5,8 +5,8 @@ from plot_keras_history import plot_history
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 
-def train_model(model, train, test, epochs=1000):
-    saved_weights_path = "./models/{name}/best_weights_{name}.hdf5".format(name=model.name)
+def train_model(model, train, test, epochs=1000, path="./models"):
+    saved_weights_path = "{path}/{name}/best_weights_{name}.hdf5".format(path=path, name=model.name)
 
     os.makedirs(os.path.dirname(saved_weights_path), exist_ok=True)
     if os.path.exists(saved_weights_path):
@@ -14,7 +14,7 @@ def train_model(model, train, test, epochs=1000):
         print("Old Weights loaded from {}".format(saved_weights_path))
 
     model_json = model.to_json()
-    with open("./models/{name}/model_{name}.json".format(name=model.name), "w") as json_file:
+    with open("{path}/{name}/model_{name}.json".format(path=path, name=model.name), "w") as json_file:
         json_file.write(model_json)
 
     
@@ -49,6 +49,6 @@ def train_model(model, train, test, epochs=1000):
     ).history
     pd.DataFrame(
         history
-    ).to_csv("./models/{name}/history_{name}.csv".format(name=model.name))
-    plot_history(history, path="./models/{name}/history_{name}.png".format(name=model.name))
+    ).to_csv("{path}/{name}/history_{name}.csv".format(path=path, name=model.name))
+    plot_history(history, path="{path}/{name}/history_{name}.png".format(path=path, name=model.name))
     return model
