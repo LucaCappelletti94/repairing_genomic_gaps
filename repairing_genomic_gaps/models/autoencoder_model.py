@@ -102,7 +102,8 @@ def build_autoencoder(
     latent_dim: int,
     filters: List[int],
     kernels: List[Tuple[int, int]],
-    strides: List[int]
+    strides: List[int],
+    verbose: bool
 ):
     inputs, encoder_shape, encoder = build_encoder(
         input_shape=input_shape,
@@ -134,8 +135,9 @@ def build_autoencoder(
         optimizer='nadam'
     )
 
-    encoder.summary()
-    decoder.summary()
-    autoencoder.summary()
+    if verbose:
+        encoder.summary()
+        decoder.summary()
+        autoencoder.summary()
 
     return autoencoder

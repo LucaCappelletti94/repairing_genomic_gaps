@@ -3,7 +3,8 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Reshape
 from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization, Activation
 
-def cnn_200() -> Model:
+
+def cnn_200(verbose: bool = True) -> Model:
     inputs = Input(shape=(200, 4))
     reshape = Reshape((200, 4, 1))(inputs)
 
@@ -24,7 +25,8 @@ def cnn_200() -> Model:
     outputs = Dense(4, activation="softmax")(x)
 
     model = Model(inputs=inputs, outputs=outputs, name=f"cnn_200")
-    model.summary()
+    if verbose:
+        model.summary()
     model.compile(
         optimizer="nadam",
         loss="categorical_crossentropy",
