@@ -26,8 +26,7 @@ def train_model(model, train, test, epochs=1000, path="./models"):
         callbacks=[
             EarlyStopping(
                 monitor='val_loss',
-                min_delta=0.0001,
-                patience=5,
+                patience=10,
                 verbose=0,
                 mode='min',
                 restore_best_weights=True
