@@ -65,7 +65,8 @@ setup(
     install_requires=[
         "keras_synthetic_genome_sequence>=1.0.9",
         "dict_hash",
-        "plot_keras_history>=1.1.19"
+        "plot_keras_history>=1.1.19",
+        "cache_decorator"
     ],
     extras_require=extras,
 )
