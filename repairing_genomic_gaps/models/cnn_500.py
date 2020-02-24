@@ -3,7 +3,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Reshape
 from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization, Activation
 
-def cnn_500() -> Model:
+def cnn_500(verbose: bool = True) -> Model:
     inputs = Input(shape=(500, 4))
     reshape = Reshape((500, 4, 1))(inputs)
 
@@ -29,7 +29,8 @@ def cnn_500() -> Model:
     outputs = Dense(4, activation="softmax")(x)
 
     model = Model(inputs=inputs, outputs=outputs, name="cnn_500")
-    model.summary()
+    if verbose:
+        model.summary()
     model.compile(
         optimizer="nadam",
         loss="categorical_crossentropy",
