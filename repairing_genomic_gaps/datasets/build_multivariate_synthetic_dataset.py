@@ -1,7 +1,7 @@
 
 import numpy as np
 import pandas as pd
-from ..utils import cache
+from cache_decorator import cache
 from typing import List, Tuple, Dict
 from ucsc_genomes_downloader import Genome
 from tensorflow.keras.utils import Sequence
