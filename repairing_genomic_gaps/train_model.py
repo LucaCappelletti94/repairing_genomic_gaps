@@ -3,15 +3,19 @@ import pandas as pd
 from multiprocessing import cpu_count
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from .utils import get_model_weights_path, get_model_json_path, get_model_history_path
+from plot_keras_history import chain_histories
 
 
 def train_model(model, train, test, epochs=1000, path="./models"):
     weights_path = get_model_weights_path(model, path)
     json_path = get_model_json_path(model, path)
+    history_path = get_model_history_path(model, path)
 
     os.makedirs(os.path.dirname(weights_path), exist_ok=True)
+    old_history = None
     if os.path.exists(weights_path):
         model.load_weights(weights_path)
+        old_history = pd.read_csv(history_path)
         print("Old Weights loaded from {}".format(weights_path))
 
     with open(json_path, "w") as f:
@@ -19,7 +23,7 @@ def train_model(model, train, test, epochs=1000, path="./models"):
     
     history = model.fit_generator(
         train,
-        steps_per_epoch=train.steps_per_epoch/15,
+        steps_per_epoch=train.steps_per_epoch,
         epochs=epochs,
         shuffle=True,
         verbose=1,
@@ -46,8 +50,9 @@ def train_model(model, train, test, epochs=1000, path="./models"):
         use_multiprocessing=True
     ).history
 
-    pd.DataFrame(
-        history
-    ).to_csv(get_model_history_path(model, path))
+    pd.DataFrame(chain_histories(
+        history,
+        old_history
+    )).to_csv(history_path, index=False)
 
     return model
