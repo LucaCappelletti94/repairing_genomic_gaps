@@ -67,7 +67,8 @@ setup(
         "dict_hash",
         "plot_keras_history>=1.1.19",
         "cache_decorator",
-        "deflate_dict"
+        "deflate_dict",
+        "holdouts_generator"
     ],
     extras_require=extras,
 )
