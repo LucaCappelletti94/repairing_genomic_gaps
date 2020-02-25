@@ -1,6 +1,6 @@
 
 import pandas as pd
-from cache_decorator import cache
+from cache_decorator import Cache
 from typing import List, Tuple, Dict
 from ucsc_genomes_downloader import Genome
 from tensorflow.keras.utils import Sequence
@@ -112,7 +112,7 @@ def build_synthetic_dataset(
     return training, testing
 
 
-@cache()
+@Cache()
 def build_synthetic_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[SingleGapWindowsSequence, SingleGapWindowsSequence]:
     """Return SingleGapWindowsSequence for training and testing.
 
@@ -123,7 +123,7 @@ def build_synthetic_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[SingleGap
     """
     return build_synthetic_dataset(window_size, SingleGapWindowsSequence, **kwargs)
 
-@cache()
+@Cache()
 def build_synthetic_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[SingleGapCenterSequence, SingleGapCenterSequence]:
     """Return SingleGapCenterSequence for training and testing.
 

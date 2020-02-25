@@ -66,7 +66,7 @@ setup(
         "keras_synthetic_genome_sequence>=1.0.9",
         "dict_hash",
         "plot_keras_history>=1.1.19",
-        "cache_decorator"
+        "cache_decorator>=1.1.0"
     ],
     extras_require=extras,
 )
