@@ -58,13 +58,14 @@ def cae_report(y_true: np.ndarray, y_pred: np.ndarray) -> Dict:
     }
 
 
-def flat_report(report: List[Dict], model: Model, dataset: Callable):
+def flat_report(report: List[Dict], model: Model, dataset: Callable, run_type:str):
     return [
         {
             "model": model.name,
             "dataset": dataset.__name__,
             "task": task,
             "target": target,
+            "run_type":run_type,
             **target_results
         }
         for report_set in report
