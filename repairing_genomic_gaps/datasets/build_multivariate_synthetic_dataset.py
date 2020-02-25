@@ -142,15 +142,15 @@ def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[Multiv
     window_size: int,
         Windows size to use for rendering the multivariate datasets.
     """
-    return build_multivariate_dataset(window_size, MultivariateGapCenterSequence, **kwargs)
+    return build_multivariate_dataset(window_size, MultivariateGapWindowsSequence, **kwargs)
 
 @Cache()
-def build_multivariate_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[MultivariateGapWindowsSequence, MultivariateGapWindowsSequence]:
-    """Return MultivariateGapWindowsSequence for training and testing.
+def build_multivariate_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[MultivariateGapCenterSequence, MultivariateGapCenterSequence]:
+    """Return MultivariateGapCenterSequence for training and testing.
 
     Parameters
     --------------------------
     window_size: int,
         Windows size to use for rendering the multivariate datasets.
     """
-    return build_multivariate_dataset(window_size, MultivariateGapWindowsSequence, **kwargs)
+    return build_multivariate_dataset(window_size, MultivariateGapCenterSequence, **kwargs)
