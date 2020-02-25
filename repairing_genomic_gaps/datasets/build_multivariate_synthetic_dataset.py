@@ -1,7 +1,7 @@
 
 import numpy as np
 import pandas as pd
-from cache_decorator import cache
+from cache_decorator import Cache
 from typing import List, Tuple, Dict
 from ucsc_genomes_downloader import Genome
 from tensorflow.keras.utils import Sequence
@@ -133,9 +133,9 @@ def build_multivariate_dataset(
     return training_gap_sequence, testing_gap_sequence
 
 
-@cache()
-def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[MultivariateGapWindowsSequence, MultivariateGapWindowsSequence]:
-    """Return MultivariateGapWindowsSequence for training and testing.
+@Cache()
+def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[MultivariateGapCenterSequence, MultivariateGapCenterSequence]:
+    """Return MultivariateGapCenterSequence for training and testing.
 
     Parameters
     --------------------------
@@ -144,7 +144,7 @@ def build_multivariate_dataset_cae(window_size:int, **kwargs:Dict)->Tuple[Multiv
     """
     return build_multivariate_dataset(window_size, MultivariateGapWindowsSequence, **kwargs)
 
-@cache()
+@Cache()
 def build_multivariate_dataset_cnn(window_size:int, **kwargs:Dict)->Tuple[MultivariateGapCenterSequence, MultivariateGapCenterSequence]:
     """Return MultivariateGapCenterSequence for training and testing.
 
