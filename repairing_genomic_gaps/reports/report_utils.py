@@ -43,6 +43,8 @@ def categorical_nucleotides_report(y_true: np.ndarray, y_pred: np.ndarray) -> Di
 
 
 def cnn_report(y_true: np.ndarray, y_pred: np.ndarray) -> Dict:
+    print(y_pred)
+    print(y_true)
     return {
         "gap_filling": categorical_nucleotides_report(y_true, y_pred)
     }
