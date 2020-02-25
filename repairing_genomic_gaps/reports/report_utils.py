@@ -6,7 +6,7 @@ from holdouts_generator.utils.metrics import binary_classifications_metrics
 
 
 def get_central_nucleotides(predictions: np.ndarray) -> np.ndarray:
-    return predictions[:, predictions.shape[1]//2].reshape(-1, 1, 4)
+    return predictions[:, predictions.shape[1]//2]
 
 
 def categorical_report(y_true: np.ndarray, y_pred: np.ndarray, true_class: np.ndarray, pred_class: np.ndarray) -> Dict:
@@ -44,7 +44,7 @@ def categorical_nucleotides_report(y_true: np.ndarray, y_pred: np.ndarray) -> Di
 
 def cnn_report(y_true: np.ndarray, y_pred: np.ndarray) -> Dict:
     return {
-        "gap_filling": categorical_nucleotides_report(y_true, y_pred)
+        "gap_filling": categorical_nucleotides_report(y_true.reshape(-1, 1, 4), y_pred.reshape(-1, 1, 4))
     }
 
 
