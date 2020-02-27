@@ -1,2 +1,2 @@
 docker build --file Dockerfile -t $(basename $PWD) .
-docker run --gpus all --tty --interactive -v "$PWD:/home"  $(basename $PWD)
+nvidia-docker run --tty --interactive --volume "$PWD:/home"  $(basename $PWD)
