@@ -9,4 +9,5 @@ def test_cnn_200():
         batch_size=128
     )
     train_model(model, train, test, epochs=1, path="./test_models")
+    train_model(model, train, test, epochs=1, path="./test_models")
 
