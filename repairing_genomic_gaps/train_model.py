@@ -46,7 +46,7 @@ def train_model(model, train, test, epochs=1000, path="./models"):
         ],
         validation_data=test,
         validation_steps=test.steps_per_epoch,
-        workers=cpu_count()//2,
+        workers=max(1, min(3, cpu_count()//2)),
         use_multiprocessing=True
     ).history
 
