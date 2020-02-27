@@ -46,8 +46,8 @@ def train_model(model, train, test, epochs=1000, path="./models"):
         ],
         validation_data=test,
         validation_steps=test.steps_per_epoch,
-        workers=max(1, min(3, cpu_count()//2)),
-        use_multiprocessing=True
+        #workers=max(1, min(3, cpu_count()//2)),
+        #use_multiprocessing=False
     ).history
 
     pd.DataFrame(chain_histories(
