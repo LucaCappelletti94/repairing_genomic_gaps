@@ -4,4 +4,4 @@ EXPOSE 8888/tcp
 WORKDIR /home
 COPY . .
 RUN apt-get update -qyy && apt-get install htop byobu -qyy
-RUN python -m pip install .
+RUN python -m pip install .[test]
