@@ -43,10 +43,17 @@ report_types = {
 }
 
 
-def build_report(model: Model, report: Callable, sequence: Sequence):
-    for batch in tqdm(range(sequence.steps_per_epoch), desc="Batches", leave=False):
-        X, y = sequence[batch]
-        yield report(y, model.predict(X))
+def build_report(model:Model, report:Callable, sequence:Sequence):
+    predictions = model.predict_generator(
+        sequence,
+        steps=sequence.steps_per_epoch,
+        verbose=1
+    )
+    y = np.concatenate([
+        sequence[batch][1]
+        for batch in range(sequence.steps_per_epoch)
+    ])
+    return report(y, predictions)
 
 
 def build_reports(**dataset_kwargs):
