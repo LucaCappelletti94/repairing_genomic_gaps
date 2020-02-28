@@ -4,8 +4,6 @@ from .train_model import train_model
 from .utils import mask_unused_gpus
 from .reports import build_reports
 
-mask_unused_gpus(1)
-
 __all__ = [
     "train_model",
     "build_multivariate_dataset_cae",
