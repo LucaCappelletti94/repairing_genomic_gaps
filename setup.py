@@ -34,7 +34,6 @@ test_deps = [
     "coveralls",
     "validate_version_code",
     "codacy-coverage",
-    "silence_tensorflow",
     "keras_tqdm",
     "notipy_me"
 ]
@@ -68,7 +67,8 @@ setup(
         "plot_keras_history>=1.1.19",
         "cache_decorator>=1.1.0"
         "deflate_dict",
-        "holdouts_generator"
+        "holdouts_generator",
+        "silence_tensorflow"
     ],
     extras_require=extras,
 )

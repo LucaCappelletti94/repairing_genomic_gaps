@@ -5,6 +5,7 @@ from ..datasets import build_multivariate_dataset_cnn, build_synthetic_dataset_c
 import numpy as np
 import pandas as pd
 from tqdm.auto import tqdm
+import silence_tensorflow
 from typing import Dict, List, Callable
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras import Model
@@ -51,7 +52,7 @@ def build_report(model:Model, report:Callable, sequence:Sequence):
     )
     y = np.concatenate([
         sequence[batch][1]
-        for batch in range(sequence.steps_per_epoch)
+        for batch in tqdm(range(sequence.steps_per_epoch), desc="Concatenating outputs")
     ])
     return report(y, predictions)
 
