@@ -91,11 +91,13 @@ def build_reports(**dataset_kwargs):
             model.load_weights(get_model_weights_path(model))
 
             execute_report(
-                report, model, training, "train", train
-            )
-            execute_report(
                 report, model, training, "test", test
             )
+
+            execute_report(
+                report, model, training, "train", train
+            )
+            
             execute_report(
                 report, model, validation, "synthetic validation", valid
             )
