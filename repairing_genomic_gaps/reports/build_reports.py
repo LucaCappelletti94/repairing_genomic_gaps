@@ -48,7 +48,9 @@ def build_report(model:Model, report:Callable, sequence:Sequence):
     predictions = model.predict_generator(
         sequence,
         steps=sequence.steps_per_epoch,
-        verbose=1
+        verbose=1,
+        use_multiprocessing=True,
+        workers=4
     )
     y = np.concatenate([
         sequence[batch][1]
