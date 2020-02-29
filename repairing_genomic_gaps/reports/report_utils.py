@@ -67,7 +67,7 @@ def _report_wrapper(kwargs):
 
 def parallelize_report(report: Callable, y_true: np.ndarray, y_pred: np.ndarray):
     workers = min(20, cpu_count())
-    total = workers*4
+    total = workers*6
     chunk_size = math.ceil(y_true.shape[0]/total)
     tasks = (
         {
