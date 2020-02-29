@@ -64,19 +64,11 @@ def execute_report(report, model, dataset, run_type, sequence):
         run_type
     )).to_csv(path)
 
-def build_report(model:Model, report:Callable, sequence:Sequence):
-    y_pred = model.predict_generator(
-        sequence,
-        steps=3,
-        verbose=1,
-        use_multiprocessing=True,
-        workers=4
-    )
-    y_true = np.concatenate([
-        sequence[batch][1]
-        for batch in tqdm(range(3), desc="Concatenating outputs")
-    ])
-    return report(y_true, y_pred)
+
+def build_report(model: Model, report: Callable, sequence: Sequence):
+    for batch in tqdm(range(2), desc="Batches", leave=False):
+        X, y = sequence[batch]
+        yield report(y, model.predict(X))
 
 
 def build_reports(**dataset_kwargs):

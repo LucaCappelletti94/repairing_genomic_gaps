@@ -99,6 +99,6 @@ def flat_report(report: List[Dict], model: Model, dataset: Callable, run_type: s
             **target_results
         }
         for report_set in report
-        for task, results in report_set.items()
+        for task, results in report.items()
         for target, target_results in results.items()
     ]
