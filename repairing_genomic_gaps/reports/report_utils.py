@@ -66,9 +66,9 @@ def _report_wrapper(kwargs):
 
 
 def parallelize_report(report: Callable, y_true: np.ndarray, y_pred: np.ndarray):
-    workers = min(20, cpu_count())
+    workers = min(10, cpu_count())
     total = workers*2
-    chunk_size = math.ceil(y_true.shape[0]/(workers*2))
+    chunk_size = math.ceil(y_true.shape[0]/total)
     tasks = (
         {
             "report":report,
@@ -77,9 +77,10 @@ def parallelize_report(report: Callable, y_true: np.ndarray, y_pred: np.ndarray)
         }
         for i in range(total)
     )
-    with Pool() as p:
+    with Pool(workers) as p:
         reports = list(tqdm(
             p.imap(_report_wrapper, tasks),
+            total=total,
             desc="Computing {}".format(report.__name__)
         ))
         p.close()
