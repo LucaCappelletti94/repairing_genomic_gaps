@@ -3,6 +3,9 @@ from typing import Dict, List, Callable
 from tensorflow.keras import Model
 from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score, balanced_accuracy_score
 from holdouts_generator.utils.metrics import binary_classifications_metrics
+from multiprocessing import Pool, cpu_count
+from tqdm.auto import tqdm
+import math
 
 
 def get_central_nucleotides(predictions: np.ndarray) -> np.ndarray:
@@ -58,16 +61,43 @@ def cae_report(y_true: np.ndarray, y_pred: np.ndarray) -> Dict:
     }
 
 
-def flat_report(report: List[Dict], model: Model, dataset: Callable, run_type:str):
+def _report_wrapper(kwargs):
+    return kwargs["report"](kwargs["y_true"], kwargs["y_pred"])
+
+
+def parallelize_report(report: Callable, y_true: np.ndarray, y_pred: np.ndarray):
+    workers = min(20, cpu_count())
+    total = workers*2
+    chunk_size = math.ceil(y_true.shape[0]/(workers*2))
+    tasks = (
+        {
+            "report":report,
+            "y_true":y_true[chunk_size*i:(i+1)*chunk_size],
+            "y_pred":y_pred[chunk_size*i:(i+1)*chunk_size]
+        }
+        for i in range(total)
+    )
+    with Pool() as p:
+        reports = list(tqdm(
+            p.imap(_report_wrapper, tasks),
+            desc="Computing {}".format(report.__name__)
+        ))
+        p.close()
+        p.join()
+    return reports
+
+
+def flat_report(report: List[Dict], model: Model, dataset: Callable, run_type: str):
     return [
         {
             "model": model.name,
             "dataset": dataset.__name__,
             "task": task,
             "target": target,
-            "run_type":run_type,
+            "run_type": run_type,
             **target_results
         }
-        for task, results in report.items()
+        for report_set in report
+        for task, results in report_set.items()
         for target, target_results in results.items()
     ]

@@ -1,3 +1,4 @@
+import silence_tensorflow
 from ..models import cae_200, cae_500, cae_1000, cnn_200, cnn_500, cnn_1000
 from ..utils import get_model_history_path, get_model_weights_path
 from ..datasets import build_multivariate_dataset_cae, build_synthetic_dataset_cae
@@ -5,11 +6,11 @@ from ..datasets import build_multivariate_dataset_cnn, build_synthetic_dataset_c
 import numpy as np
 import pandas as pd
 from tqdm.auto import tqdm
-import silence_tensorflow
+import os
 from typing import Dict, List, Callable
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras import Model
-from .report_utils import cae_report, cnn_report, flat_report
+from .report_utils import cae_report, cnn_report, flat_report, parallelize_report
 import warnings
 
 warnings.simplefilter("ignore")
@@ -43,24 +44,42 @@ report_types = {
     "cnn": cnn_report
 }
 
+def get_report_path(model, dataset, run_type):
+    return "report_{model}_{dataset}_{run_type}.csv".format(
+        model=model.name,
+        dataset=dataset.__name__,
+        run_type=run_type
+    )
+
+def execute_report(report, model, dataset, run_type, sequence):
+    path = get_report_path(model, dataset, run_type)
+
+    if os.path.exists(path):
+        return
+
+    pd.DataFrame(flat_report(
+        build_report(model, report, sequence),
+        model,
+        dataset,
+        run_type
+    )).to_csv(path)
 
 def build_report(model:Model, report:Callable, sequence:Sequence):
-    predictions = model.predict_generator(
+    y_pred = model.predict_generator(
         sequence,
         steps=sequence.steps_per_epoch,
         verbose=1,
         use_multiprocessing=True,
         workers=4
     )
-    y = np.concatenate([
+    y_true = np.concatenate([
         sequence[batch][1]
         for batch in tqdm(range(sequence.steps_per_epoch), desc="Concatenating outputs")
     ])
-    return report(y, predictions)
+    return parallelize_report(report, y_true, y_pred)
 
 
 def build_reports(**dataset_kwargs):
-    reports = []
     for model_type in tqdm(models, desc="Model types", leave=False):
         report = report_types[model_type]
         for window_size, build_model in tqdm(models[model_type].items(), desc="Models", leave=False):
@@ -70,23 +89,15 @@ def build_reports(**dataset_kwargs):
             #bio = biological(window_size)
             model = build_model(verbose=False)
             model.load_weights(get_model_weights_path(model))
-            reports += flat_report(
-                build_report(model, report, test),
-                model,
-                training,
-                "test"
+
+            execute_report(
+                report, model, training, "train", train
             )
-            reports += flat_report(
-                build_report(model, report, train),
-                model,
-                training,
-                "train"
+            execute_report(
+                report, model, training, "test", test
             )
-            reports += flat_report(
-                build_report(model, report, valid),
-                model,
-                validation,
-                "synthetic validation"
+            execute_report(
+                report, model, validation, "synthetic validation", valid
             )
             # reports += flat_report(
             ###################################
@@ -98,4 +109,3 @@ def build_reports(**dataset_kwargs):
             # biological,
             #"biological validation (hg19/38)"
             # )
-    pd.DataFrame(reports).to_csv("report.csv")
