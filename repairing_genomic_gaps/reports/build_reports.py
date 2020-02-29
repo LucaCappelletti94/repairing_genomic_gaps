@@ -66,7 +66,8 @@ def execute_report(report, model, dataset, run_type, sequence):
 
 
 def build_report(model: Model, report: Callable, sequence: Sequence):
-    for batch in tqdm(range(2), desc="Batches", leave=False):
+    sequence.on_epoch_end()
+    for batch in tqdm(range(100), desc="Batches", leave=False):
         X, y = sequence[batch]
         yield report(y, model.predict(X))
 
