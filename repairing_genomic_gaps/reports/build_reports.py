@@ -67,16 +67,16 @@ def execute_report(report, model, dataset, run_type, sequence):
 def build_report(model:Model, report:Callable, sequence:Sequence):
     y_pred = model.predict_generator(
         sequence,
-        steps=sequence.steps_per_epoch,
+        steps=3,
         verbose=1,
         use_multiprocessing=True,
         workers=4
     )
     y_true = np.concatenate([
         sequence[batch][1]
-        for batch in tqdm(range(sequence.steps_per_epoch), desc="Concatenating outputs")
+        for batch in tqdm(range(3), desc="Concatenating outputs")
     ])
-    return parallelize_report(report, y_true, y_pred)
+    return report(y_true, y_pred)
 
 
 def build_reports(**dataset_kwargs):
