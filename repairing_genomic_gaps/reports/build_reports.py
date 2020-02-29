@@ -81,7 +81,7 @@ def build_reports(**dataset_kwargs):
             _, valid = validation(window_size, **dataset_kwargs)
             #bio = biological(window_size)
             model = build_model(verbose=False)
-            model.load_weights(get_model_weights_path(model))
+            model.load_weights(get_model_weights_path(model, path="single_gap"))
 
             execute_report(
                 report, model, training, "test", test
