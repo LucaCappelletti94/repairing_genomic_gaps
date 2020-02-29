@@ -29,12 +29,12 @@ models = {
 
 datasets = {
     "cae": [
+        build_synthetic_dataset_cae,
         build_multivariate_dataset_cae,
-        build_synthetic_dataset_cae
     ],
     "cnn": [
+        build_synthetic_dataset_cnn,
         build_multivariate_dataset_cnn,
-        build_synthetic_dataset_cnn
     ]
 }
 
