@@ -11,6 +11,7 @@ from tensorflow.keras.utils import Sequence
 from tensorflow.keras import Model
 from .report_utils import cae_report, cnn_report, flat_report
 import warnings
+from notipy_me import Notipy
 
 warnings.simplefilter("ignore")
 
@@ -78,41 +79,42 @@ def build_report(model: Model, report: Callable, sequence: Sequence):
 
 
 def build_reports(**dataset_kwargs):
-    for model_type in tqdm(models, desc="Model types", leave=False):
-        report = report_types[model_type]
-        for window_size, build_model in tqdm(models[model_type].items(), desc="Models", leave=False):
-            single_gap_dataset, multivariate_dataset = datasets[model_type]
-            single_train, single_test = single_gap_dataset(window_size, **dataset_kwargs)
-            multivariate_train, multivariate_test = multivariate_dataset(window_size, **dataset_kwargs)
-            #bio = biological(window_size)
-            model = build_model(verbose=False)
-            for weight_directory in tqdm(("single_gap", "multivariate_gaps"), desc="weights", leave=False):
-                model.load_weights(get_model_weights_path(model, path=weight_directory))
-                bar = tqdm(desc="Running reports", total=4, leave=False)
-                execute_report(
-                    report, model, weight_directory, single_gap_dataset, "single gap test", single_test
-                )
-                bar.update()
-                execute_report(
-                    report, model, weight_directory, single_gap_dataset, "single gap train", single_train
-                )
-                bar.update()
-                execute_report(
-                    report, model, weight_directory, multivariate_dataset, "multivariate gaps test", multivariate_test
-                )
-                bar.update()
-                execute_report(
-                    report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
-                )
-                bar.update()
-                bar.close()
-                # reports += flat_report(
-                ###################################
-                # TODO: UPDATE THE DATASET AS SOON
-                # AS IT BECOMES AVAILABLE!!!
-                ###################################
-                #build_report(model, report, valid),
-                # model,
-                # biological,
-                #"biological validation (hg19/38)"
-                # )
+    with Notipy():
+        for model_type in tqdm(models, desc="Model types", leave=False):
+            report = report_types[model_type]
+            for window_size, build_model in tqdm(models[model_type].items(), desc="Models", leave=False):
+                single_gap_dataset, multivariate_dataset = datasets[model_type]
+                single_train, single_test = single_gap_dataset(window_size, **dataset_kwargs)
+                multivariate_train, multivariate_test = multivariate_dataset(window_size, **dataset_kwargs)
+                #bio = biological(window_size)
+                model = build_model(verbose=False)
+                for weight_directory in tqdm(("single_gap", "multivariate_gaps"), desc="weights", leave=False):
+                    model.load_weights(get_model_weights_path(model, path=weight_directory))
+                    bar = tqdm(desc="Running reports", total=4, leave=False)
+                    execute_report(
+                        report, model, weight_directory, single_gap_dataset, "single gap test", single_test
+                    )
+                    bar.update()
+                    execute_report(
+                        report, model, weight_directory, single_gap_dataset, "single gap train", single_train
+                    )
+                    bar.update()
+                    execute_report(
+                        report, model, weight_directory, multivariate_dataset, "multivariate gaps test", multivariate_test
+                    )
+                    bar.update()
+                    execute_report(
+                        report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
+                    )
+                    bar.update()
+                    bar.close()
+                    # reports += flat_report(
+                    ###################################
+                    # TODO: UPDATE THE DATASET AS SOON
+                    # AS IT BECOMES AVAILABLE!!!
+                    ###################################
+                    #build_report(model, report, valid),
+                    # model,
+                    # biological,
+                    #"biological validation (hg19/38)"
+                    # )
