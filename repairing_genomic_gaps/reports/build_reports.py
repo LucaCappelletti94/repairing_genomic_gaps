@@ -88,7 +88,7 @@ def build_reports(**dataset_kwargs):
             model = build_model(verbose=False)
             for weight_directory in tqdm(("single_gap", "multivariate_gaps"), desc="weights", leave=False):
                 model.load_weights(get_model_weights_path(model, path=weight_directory))
-                bar = tqdm(desc="Running reports", total=4)
+                bar = tqdm(desc="Running reports", total=4, leave=False)
                 execute_report(
                     report, model, weight_directory, single_gap_dataset, "single gap test", single_test
                 )
