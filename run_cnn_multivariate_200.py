@@ -1,4 +1,3 @@
-import silence_tensorflow
 from notipy_me import Notipy
 from repairing_genomic_gaps import cnn_200, build_multivariate_dataset_cnn, train_model
 

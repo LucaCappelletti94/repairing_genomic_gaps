@@ -1,4 +1,3 @@
-import silence_tensorflow
 from ..models import cae_200, cae_500, cae_1000, cnn_200, cnn_500, cnn_1000
 from ..utils import get_model_history_path, get_model_weights_path
 from ..datasets import build_multivariate_dataset_cae, build_synthetic_dataset_cae
@@ -10,7 +9,7 @@ import os
 from typing import Dict, List, Callable
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras import Model
-from .report_utils import cae_report, cnn_report, flat_report, parallelize_report
+from .report_utils import cae_report, cnn_report, flat_report
 import warnings
 
 warnings.simplefilter("ignore")

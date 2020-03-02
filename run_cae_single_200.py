@@ -1,4 +1,3 @@
-import silence_tensorflow
 from notipy_me import Notipy
 from repairing_genomic_gaps import cae_200, build_synthetic_dataset_cae, train_model
 

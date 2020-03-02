@@ -61,33 +61,6 @@ def cae_report(y_true: np.ndarray, y_pred: np.ndarray) -> Dict:
     }
 
 
-def _report_wrapper(kwargs):
-    return kwargs["report"](kwargs["y_true"], kwargs["y_pred"])
-
-
-def parallelize_report(report: Callable, y_true: np.ndarray, y_pred: np.ndarray):
-    workers = min(10, cpu_count())
-    total = workers*10
-    chunk_size = math.ceil(y_true.shape[0]/total)
-    tasks = (
-        {
-            "report":report,
-            "y_true":y_true[chunk_size*i:(i+1)*chunk_size],
-            "y_pred":y_pred[chunk_size*i:(i+1)*chunk_size]
-        }
-        for i in range(total)
-    )
-    with Pool(workers) as p:
-        reports = list(tqdm(
-            p.imap(_report_wrapper, tasks),
-            total=total,
-            desc="Computing {}".format(report.__name__)
-        ))
-        p.close()
-        p.join()
-    return reports
-
-
 def flat_report(report: List[Dict], model: Model, dataset: Callable, run_type: str):
     return [
         {
@@ -98,7 +71,6 @@ def flat_report(report: List[Dict], model: Model, dataset: Callable, run_type: s
             "run_type": run_type,
             **target_results
         }
-        for report_set in report
-        for task, results in report_set.items()
+        for task, results in report.items()
         for target, target_results in results.items()
     ]
