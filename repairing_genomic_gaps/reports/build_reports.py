@@ -70,11 +70,11 @@ def build_report(model: Model, report: Callable, sequence: Sequence):
     sequence.on_epoch_end()
     X, y = zip(*[
         sequence[batch]
-        for batch in tqdm(range(min(10, sequence.steps_per_epoch)), desc="Rendering batches", leave=False)
+        for batch in tqdm(range(min(100, sequence.steps_per_epoch)), desc="Rendering batches", leave=False)
     ])
     X = np.concatenate(X)
     y = np.concatenate(y)
-    return report(y, model.predict(X, verbose=1))
+    return report(y, model.predict(X))
 
 
 def build_reports(**dataset_kwargs):
