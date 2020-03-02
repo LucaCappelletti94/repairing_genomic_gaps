@@ -1,11 +1,8 @@
+from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score, balanced_accuracy_score
+from holdouts_generator.utils.metrics import binary_classifications_metrics
 import numpy as np
 from typing import Dict, List, Callable
 from tensorflow.keras import Model
-from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score, balanced_accuracy_score
-from holdouts_generator.utils.metrics import binary_classifications_metrics
-from multiprocessing import Pool, cpu_count
-from tqdm.auto import tqdm
-import math
 
 
 def get_central_nucleotides(predictions: np.ndarray) -> np.ndarray:
