@@ -74,7 +74,7 @@ def build_report(model: Model, report: Callable, sequence: Sequence):
     ])
     X = np.concatenate(X)
     y = np.concatenate(y)
-    return report(y, model.predict(X))
+    return report(y, model.predict(X, verbose=1))
 
 
 def build_reports(**dataset_kwargs):
