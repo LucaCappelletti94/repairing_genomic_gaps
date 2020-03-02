@@ -43,15 +43,16 @@ report_types = {
     "cnn": cnn_report
 }
 
-def get_report_path(model, dataset, run_type):
-    return "report_{model}_{dataset}_{run_type}.csv".format(
+def get_report_path(model, dataset, trained_on, run_type):
+    return "report_{model}_{dataset}_{trained_on}_{run_type}.csv".format(
         model=model.name,
         dataset=dataset.__name__,
+        trained_on=trained_on,
         run_type=run_type
     )
 
 def execute_report(report, model, trained_on, dataset, run_type, sequence):
-    path = get_report_path(model, dataset, run_type)
+    path = get_report_path(model, dataset, trained_on, run_type)
 
     if os.path.exists(path):
         return
@@ -67,10 +68,12 @@ def execute_report(report, model, trained_on, dataset, run_type, sequence):
 
 def build_report(model: Model, report: Callable, sequence: Sequence):
     sequence.on_epoch_end()
-    X, y = np.vstack([
-        np.array(sequence[batch])
+    X, y = zip(*[
+        sequence[batch]
         for batch in tqdm(range(min(100, sequence.steps_per_epoch)), desc="Rendering batches", leave=False)
-    ]).T
+    ])
+    X = np.concatenate(X)
+    y = np.concatenate(y)
     return report(y, model.predict(X))
 
 
