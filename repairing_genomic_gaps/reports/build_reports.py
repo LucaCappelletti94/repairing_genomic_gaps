@@ -66,33 +66,41 @@ def execute_report(report, model, dataset, run_type, sequence):
 
 def build_report(model: Model, report: Callable, sequence: Sequence):
     sequence.on_epoch_end()
-    for batch in tqdm(range(100), desc="Batches", leave=False):
-        X, y = sequence[batch]
-        yield report(y, model.predict(X))
+    X, y = np.vstack([
+        sequence[batch]
+        for batch in tqdm(range(min(100, sequence.steps_per_epoch)), desc="Rendering batches", leave=False)
+    ])
+    return report(y, model.predict(X))
 
 
 def build_reports(**dataset_kwargs):
     for model_type in tqdm(models, desc="Model types", leave=False):
         report = report_types[model_type]
         for window_size, build_model in tqdm(models[model_type].items(), desc="Models", leave=False):
-            training, validation = datasets[model_type]
-            train, test = training(window_size, **dataset_kwargs)
-            _, valid = validation(window_size, **dataset_kwargs)
+            single_gap_dataset, multivariate_dataset = datasets[model_type]
+            single_train, single_test = single_gap_dataset(window_size, **dataset_kwargs)
+            multivariate_train, multivariate_test = multivariate_dataset(window_size, **dataset_kwargs)
             #bio = biological(window_size)
             model = build_model(verbose=False)
             model.load_weights(get_model_weights_path(model, path="single_gap"))
 
             execute_report(
-                report, model, training, "test", test
+                report, model, single_gap_dataset, "single gap test", single_test
             )
 
             execute_report(
-                report, model, training, "train", train
+                report, model, single_gap_dataset, "single gap train", single_train
+            )
+
+            execute_report(
+                report, model, multivariate_dataset, "multivariate gaps test", multivariate_test
+            )
+
+            execute_report(
+                report, model, multivariate_dataset, "multivariate gaps train", multivariate_train
             )
             
-            execute_report(
-                report, model, validation, "synthetic validation", valid
-            )
+            
             # reports += flat_report(
             ###################################
             # TODO: UPDATE THE DATASET AS SOON
