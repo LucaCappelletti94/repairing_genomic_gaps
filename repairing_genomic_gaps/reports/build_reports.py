@@ -68,9 +68,9 @@ def execute_report(report, model, trained_on, dataset, run_type, sequence):
 def build_report(model: Model, report: Callable, sequence: Sequence):
     sequence.on_epoch_end()
     X, y = np.vstack([
-        sequence[batch]
+        np.array(sequence[batch])
         for batch in tqdm(range(min(100, sequence.steps_per_epoch)), desc="Rendering batches", leave=False)
-    ])
+    ]).T
     return report(y, model.predict(X))
 
 
@@ -101,7 +101,6 @@ def build_reports(**dataset_kwargs):
                 execute_report(
                     report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
                 )
-                
                 
                 # reports += flat_report(
                 ###################################
