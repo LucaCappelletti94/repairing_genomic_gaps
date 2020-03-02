@@ -50,7 +50,7 @@ def get_report_path(model, dataset, run_type):
         run_type=run_type
     )
 
-def execute_report(report, model, dataset, run_type, sequence):
+def execute_report(report, model, trained_on, dataset, run_type, sequence):
     path = get_report_path(model, dataset, run_type)
 
     if os.path.exists(path):
@@ -59,6 +59,7 @@ def execute_report(report, model, dataset, run_type, sequence):
     pd.DataFrame(flat_report(
         build_report(model, report, sequence),
         model,
+        trained_on,
         dataset,
         run_type
     )).to_csv(path)
@@ -82,32 +83,33 @@ def build_reports(**dataset_kwargs):
             multivariate_train, multivariate_test = multivariate_dataset(window_size, **dataset_kwargs)
             #bio = biological(window_size)
             model = build_model(verbose=False)
-            model.load_weights(get_model_weights_path(model, path="single_gap"))
+            for weight_directory in ("single_gap", "multivariate_gaps"):
+                model.load_weights(get_model_weights_path(model, path=weight_directory))
 
-            execute_report(
-                report, model, single_gap_dataset, "single gap test", single_test
-            )
+                execute_report(
+                    report, model, weight_directory, single_gap_dataset, "single gap test", single_test
+                )
 
-            execute_report(
-                report, model, single_gap_dataset, "single gap train", single_train
-            )
+                execute_report(
+                    report, model, weight_directory, single_gap_dataset, "single gap train", single_train
+                )
 
-            execute_report(
-                report, model, multivariate_dataset, "multivariate gaps test", multivariate_test
-            )
+                execute_report(
+                    report, model, weight_directory, multivariate_dataset, "multivariate gaps test", multivariate_test
+                )
 
-            execute_report(
-                report, model, multivariate_dataset, "multivariate gaps train", multivariate_train
-            )
-            
-            
-            # reports += flat_report(
-            ###################################
-            # TODO: UPDATE THE DATASET AS SOON
-            # AS IT BECOMES AVAILABLE!!!
-            ###################################
-            #build_report(model, report, valid),
-            # model,
-            # biological,
-            #"biological validation (hg19/38)"
-            # )
+                execute_report(
+                    report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
+                )
+                
+                
+                # reports += flat_report(
+                ###################################
+                # TODO: UPDATE THE DATASET AS SOON
+                # AS IT BECOMES AVAILABLE!!!
+                ###################################
+                #build_report(model, report, valid),
+                # model,
+                # biological,
+                #"biological validation (hg19/38)"
+                # )
