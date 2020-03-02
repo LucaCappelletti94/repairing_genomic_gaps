@@ -68,7 +68,7 @@ setup(
         "cache_decorator>=1.1.0"
         "deflate_dict",
         "holdouts_generator",
-        "silence_tensorflow"
+        "silence_tensorflow>=1.1.0"
     ],
     extras_require=extras,
 )
