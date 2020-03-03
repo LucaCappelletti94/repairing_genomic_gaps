@@ -1,5 +1,4 @@
-from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score, balanced_accuracy_score
-from holdouts_generator.utils.metrics import binary_classifications_metrics
+from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score
 import numpy as np
 from typing import Dict, List, Callable
 from tensorflow.keras import Model
@@ -13,8 +12,7 @@ def categorical_report(y_true: np.ndarray, y_pred: np.ndarray, true_class: np.nd
     return {
         "roc_auc_score": roc_auc_score(y_true, y_pred),
         "average_precision_score": average_precision_score(y_true, y_pred),
-        "accuracy_score": accuracy_score(true_class, pred_class),
-        "balanced_accuracy_score": balanced_accuracy_score(true_class, pred_class)
+        "accuracy_score": accuracy_score(true_class, pred_class)
     }
 
 
@@ -35,8 +33,10 @@ def categorical_nucleotides_report(y_true: np.ndarray, y_pred: np.ndarray) -> Di
             true_class.flatten(), pred_class.flatten()
         ),
         **{
-            nucleotide: binary_classifications_metrics(
-                y_true[:, :, i].flatten(), y_pred[:, :, i].flatten())
+            nucleotide: categorical_report(
+                y_true[:, :, i].flatten(), y_pred[:, :, i].flatten(),
+                y_true[:, :, i].flatten(), y_pred[:, :, i].flatten().round()
+            )
             for i, nucleotide in enumerate(nucleotides)
         }
     }
