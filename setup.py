@@ -68,7 +68,8 @@ setup(
         "cache_decorator>=1.1.0"
         "deflate_dict",
         "holdouts_generator",
-        "silence_tensorflow>=1.1.0"
+        "silence_tensorflow>=1.1.0",
+        "keras_biological_gaps_sequence"
     ],
     extras_require=extras,
 )

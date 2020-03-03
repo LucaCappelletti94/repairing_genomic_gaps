@@ -1,7 +1,7 @@
 from ..models import cae_200, cae_500, cae_1000, cnn_200, cnn_500, cnn_1000
 from ..utils import get_model_history_path, get_model_weights_path
-from ..datasets import build_multivariate_dataset_cae, build_synthetic_dataset_cae
-from ..datasets import build_multivariate_dataset_cnn, build_synthetic_dataset_cnn
+from ..datasets import build_multivariate_dataset_cae, build_synthetic_dataset_cae, build_biological_dataset_cae
+from ..datasets import build_multivariate_dataset_cnn, build_synthetic_dataset_cnn, build_biological_dataset_cnn
 import numpy as np
 import pandas as pd
 from tqdm.auto import tqdm
@@ -32,10 +32,12 @@ datasets = {
     "cae": [
         build_synthetic_dataset_cae,
         build_multivariate_dataset_cae,
+        build_biological_dataset_cae
     ],
     "cnn": [
         build_synthetic_dataset_cnn,
         build_multivariate_dataset_cnn,
+        build_biological_dataset_cnn
     ]
 }
 
@@ -83,14 +85,14 @@ def build_reports(**dataset_kwargs):
         for model_type in tqdm(models, desc="Model types", leave=False):
             report = report_types[model_type]
             for window_size, build_model in tqdm(models[model_type].items(), desc="Models", leave=False):
-                single_gap_dataset, multivariate_dataset = datasets[model_type]
+                single_gap_dataset, multivariate_dataset, biological_dataset = datasets[model_type]
                 single_train, single_test = single_gap_dataset(window_size, **dataset_kwargs)
                 multivariate_train, multivariate_test = multivariate_dataset(window_size, **dataset_kwargs)
-                #bio = biological(window_size)
+                bio = biological_dataset(window_size)
                 model = build_model(verbose=False)
                 for weight_directory in tqdm(("single_gap", "multivariate_gaps"), desc="weights", leave=False):
                     model.load_weights(get_model_weights_path(model, path=weight_directory))
-                    bar = tqdm(desc="Running reports", total=4, leave=False)
+                    bar = tqdm(desc="Running reports", total=5, leave=False)
                     execute_report(
                         report, model, weight_directory, single_gap_dataset, "single gap test", single_test
                     )
@@ -107,14 +109,9 @@ def build_reports(**dataset_kwargs):
                         report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
                     )
                     bar.update()
+                    execute_report(
+                        report, model, weight_directory, biological_dataset, "biological validation", bio
+                    )
+                    bar.update()
                     bar.close()
-                    # reports += flat_report(
-                    ###################################
-                    # TODO: UPDATE THE DATASET AS SOON
-                    # AS IT BECOMES AVAILABLE!!!
-                    ###################################
-                    #build_report(model, report, valid),
-                    # model,
-                    # biological,
-                    #"biological validation (hg19/38)"
-                    # )
+                    
