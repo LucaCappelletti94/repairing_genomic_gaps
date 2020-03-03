@@ -18,6 +18,7 @@ cache
 variables
 genomes
 test_models
+test_reports
 
 htmlcov
 .benchmarks

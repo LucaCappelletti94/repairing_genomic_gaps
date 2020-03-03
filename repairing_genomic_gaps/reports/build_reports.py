@@ -46,16 +46,19 @@ report_types = {
     "cnn": cnn_report
 }
 
-def get_report_path(model, dataset, trained_on, run_type):
-    return "report_{model}_{dataset}_{trained_on}_{run_type}.csv".format(
+def get_report_path(root, model, dataset, trained_on, run_type):
+    path = "{root}/report_{model}_{dataset}_{trained_on}_{run_type}.csv".format(
+        root=root,
         model=model.name,
         dataset=dataset.__name__,
         trained_on=trained_on,
         run_type=run_type
     )
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    return path
 
-def execute_report(report, model, trained_on, dataset, run_type, sequence):
-    path = get_report_path(model, dataset, trained_on, run_type)
+def execute_report(root, report, model, trained_on, dataset, run_type, sequence):
+    path = get_report_path(root, model, dataset, trained_on, run_type)
 
     if os.path.exists(path):
         return
@@ -80,7 +83,7 @@ def build_report(model: Model, report: Callable, sequence: Sequence):
     return report(y, model.predict(X))
 
 
-def build_reports(**dataset_kwargs):
+def build_reports(root, **dataset_kwargs):
     with Notipy():
         for model_type in tqdm(models, desc="Model types", leave=False):
             report = report_types[model_type]
@@ -94,23 +97,23 @@ def build_reports(**dataset_kwargs):
                     model.load_weights(get_model_weights_path(model, path=weight_directory))
                     bar = tqdm(desc="Running reports", total=5, leave=False)
                     execute_report(
-                        report, model, weight_directory, single_gap_dataset, "single gap test", single_test
+                        root, report, model, weight_directory, single_gap_dataset, "single gap test", single_test
                     )
                     bar.update()
                     execute_report(
-                        report, model, weight_directory, single_gap_dataset, "single gap train", single_train
+                        root, report, model, weight_directory, single_gap_dataset, "single gap train", single_train
                     )
                     bar.update()
                     execute_report(
-                        report, model, weight_directory, multivariate_dataset, "multivariate gaps test", multivariate_test
+                        root, report, model, weight_directory, multivariate_dataset, "multivariate gaps test", multivariate_test
                     )
                     bar.update()
                     execute_report(
-                        report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
+                        root, report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
                     )
                     bar.update()
                     execute_report(
-                        report, model, weight_directory, biological_dataset, "biological validation", bio
+                        root, report, model, weight_directory, biological_dataset, "biological validation", bio
                     )
                     bar.update()
                     bar.close()
