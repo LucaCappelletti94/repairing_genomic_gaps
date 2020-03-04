@@ -1,0 +1,11 @@
+,model,trained_on,dataset,task,target,run_type,roc_auc_score,average_precision_score,accuracy_score
+0,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,reconstruction,all_nucleotides,multivariate gaps test,0.9990358671792691,0.9978371607921066,0.976036474609375
+1,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,reconstruction,adenine,multivariate gaps test,0.9990636580855732,0.9977608551173651,0.98590966796875
+2,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,reconstruction,cytosine,multivariate gaps test,0.9992247586395671,0.9974874552515778,0.989976025390625
+3,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,reconstruction,thymine,multivariate gaps test,0.9994829396369425,0.998825412644206,0.990470556640625
+4,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,reconstruction,guanine,multivariate gaps test,0.9981262082501542,0.9967041079732601,0.990278955078125
+5,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps test,0.6407956576506296,0.3604966033947906,0.363955078125
+6,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,adenine,multivariate gaps test,0.5983098254368526,0.36267603723601743,0.70724609375
+7,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,cytosine,multivariate gaps test,0.6712954663220133,0.3423133833723017,0.78771484375
+8,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,thymine,multivariate gaps test,0.6172557619863563,0.38978604374329306,0.69720703125
+9,cae_200,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,guanine,multivariate gaps test,0.6479347926402215,0.3332664926451405,0.786884765625

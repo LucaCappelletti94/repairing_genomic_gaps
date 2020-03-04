@@ -1,0 +1,6 @@
+,model,trained_on,dataset,task,target,run_type,roc_auc_score,average_precision_score,accuracy_score
+0,cnn_500,single_gap,build_synthetic_dataset_cnn_cached,gap_filling,all_nucleotides,single gap train,0.7638248520056407,0.559869559320055,0.484462890625
+1,cnn_500,single_gap,build_synthetic_dataset_cnn_cached,gap_filling,adenine,single gap train,0.73355528276534,0.5716522122878096,0.74220703125
+2,cnn_500,single_gap,build_synthetic_dataset_cnn_cached,gap_filling,cytosine,single gap train,0.7773616009729698,0.5310886425456579,0.825869140625
+3,cnn_500,single_gap,build_synthetic_dataset_cnn_cached,gap_filling,thymine,single gap train,0.7372903285876721,0.5759370841068711,0.745283203125
+4,cnn_500,single_gap,build_synthetic_dataset_cnn_cached,gap_filling,guanine,single gap train,0.7798769584201192,0.532908528418134,0.82658203125
