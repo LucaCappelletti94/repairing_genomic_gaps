@@ -1,7 +1,0 @@
-,model,train1,train2,win,tie,lose,pvalue
-0,cae_1000,single_gap,multivariate_gaps,0,1,0,0.5502919421280152
-1,cnn_200,single_gap,multivariate_gaps,0,0,1,0.02276874371892181
-2,cae_500,single_gap,multivariate_gaps,0,1,0,0.2958775226696384
-3,cae_200,single_gap,multivariate_gaps,0,0,1,0.01374129035320903
-4,cnn_1000,single_gap,multivariate_gaps,0,1,0,0.05691459258521418
-5,cnn_500,single_gap,multivariate_gaps,0,0,1,0.020633435105949553
