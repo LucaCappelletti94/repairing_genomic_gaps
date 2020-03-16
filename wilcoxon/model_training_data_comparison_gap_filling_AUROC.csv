@@ -1,7 +1,13 @@
-,Model,Win,Tie,Losses
-0,CAE 1000,2,0,3
-1,CAE 200,1,0,4
-2,CAE 500,0,0,5
-3,CNN 1000,3,2,0
-4,CNN 200,3,1,1
-5,CNN 500,4,1,0
+Train,Model,Win,Tie,Losses
+Multivariate gaps,CAE 1000,3,5,3
+Multivariate gaps,CAE 200,3,4,4
+Multivariate gaps,CAE 500,1,1,9
+Multivariate gaps,CNN 1000,6,3,2
+Multivariate gaps,CNN 200,9,2,0
+Multivariate gaps,CNN 500,8,3,0
+Single gap,CAE 1000,3,5,3
+Single gap,CAE 200,2,1,8
+Single gap,CAE 500,0,0,11
+Single gap,CNN 1000,4,5,2
+Single gap,CNN 200,1,10,0
+Single gap,CNN 500,3,7,1

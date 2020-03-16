@@ -1,23 +1,24 @@
-\begin{table}
+\begin{table}[H]
 \centering
-\caption{Win-Tie-Losses table for Gap filling obtained from Wilcoxon signed-rank test on AUROC.}
-\label{tab:gap_filling_model_comparison_AUROC}
-\begin{tabular}{|c|c|c|}
-\toprule
- \textbf{Win} &  \textbf{Tie} &  \textbf{Losses} \\
-            3 &             5 &                3 \\
-\midrule
-            3 &             4 &                4 \\
-            1 &             1 &                9 \\
-            6 &             3 &                2 \\
-            9 &             2 &                0 \\
-            8 &             3 &                0 \\
-            3 &             5 &                3 \\
-            2 &             1 &                8 \\
-            0 &             0 &               11 \\
-            4 &             5 &                2 \\
-            1 &            10 &                0 \\
-            3 &             7 &                1 \\
-\bottomrule
+\begin{tabular}{|c|c|c|c|}
+
+\textbf{Model} &  \textbf{Win} &  \textbf{Tie} &  \textbf{Losses} \\
+\hline
+
+      CAE 1000 &             2 &             0 &                3 \\
+\hline
+       CAE 200 &             1 &             0 &                4 \\
+\hline
+       CAE 500 &             0 &             0 &                5 \\
+\hline
+      CNN 1000 &             3 &             2 &                0 \\
+\hline
+       CNN 200 &             3 &             1 &                1 \\
+\hline
+       CNN 500 &             4 &             1 &                0 \\
+\hline
+
 \end{tabular}
+\caption{Win-Tie-Losses table for Gap filling obtained from Wilcoxon signed-rank teston AUROC.}
+\label{tab:gap_filling_model_comparison}
 \end{table}

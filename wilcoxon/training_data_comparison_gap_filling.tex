@@ -1,14 +1,18 @@
-\begin{table}
+\begin{table}[H]
 \centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+
+\textbf{Metric} &    \textbf{Train1} & \textbf{Train2} &  \textbf{Win} &  \textbf{Tie} &  \textbf{Losses} &  \textbf{Pvalue} \\
+\hline
+
+       Accuracy &  Multivariate gaps &      Single gap &             1 &             0 &                0 &         0.000002 \\
+\hline
+          AUPRC &  Multivariate gaps &      Single gap &             1 &             0 &                0 &         0.000292 \\
+\hline
+          AUROC &  Multivariate gaps &      Single gap &             1 &             0 &                0 &         0.000130 \\
+\hline
+
+\end{tabular}
 \caption{Win-Tie-Losses table for Gap filling obtained from Wilcoxon signed-rank test.}
 \label{tab:gap_filling_training_data_comparison}
-\begin{tabular}{|c|c|c|c|c|c|}
-\toprule
-   \textbf{Train1} & \textbf{Train2} &  \textbf{Win} &  \textbf{Tie} &  \textbf{Losses} &  \textbf{Pvalue} \\
- Multivariate gaps &      Single gap &             1 &             0 &                0 &         0.000002 \\
-\midrule
- Multivariate gaps &      Single gap &             1 &             0 &                0 &         0.000292 \\
- Multivariate gaps &      Single gap &             1 &             0 &                0 &         0.000130 \\
-\bottomrule
-\end{tabular}
 \end{table}

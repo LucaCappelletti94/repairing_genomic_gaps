@@ -3,7 +3,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Flatten, Dense, Reshape, Conv2DTranspose
-from ..utils import axis_softmax, axis_categorical
+from ..utils import axis_softmax, axis_categorical, weighted_axis_categorical
 from .autoencoder_blocks import encoder_blocks, decoder_blocks
 
 
@@ -12,7 +12,7 @@ def build_encoder(
     latent_dim: int,
     filters: List[int],
     kernels: List[Tuple[int, int]],
-    strides: List[int]
+    strides: List[int],
 ) -> Tuple[Input, Tuple, Model]:
     """Return Tuple containing inputs, last convolutional layer shape and encoder model.
 
@@ -103,7 +103,10 @@ def build_autoencoder(
     filters: List[int],
     kernels: List[Tuple[int, int]],
     strides: List[int],
-    verbose: bool
+    verbose: bool,
+    use_weighted : bool = False,
+    _min : float = 1.0,
+    _max : float = 10.0,
 ):
     inputs, encoder_shape, encoder = build_encoder(
         input_shape=input_shape,
@@ -130,8 +133,14 @@ def build_autoencoder(
         name='cae_{}'.format(input_shape[0])
     )
 
+
+    if use_weighted:
+        loss = weighted_axis_categorical(_min, _max)
+    else:
+        loss = axis_categorical
+
     autoencoder.compile(
-        loss=axis_categorical,
+        loss=loss,
         optimizer='nadam'
     )
 
