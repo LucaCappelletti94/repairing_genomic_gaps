@@ -1,0 +1,24 @@
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+
+    \textbf{Train} & \textbf{Model} &  \textbf{Win} &  \textbf{Tie} &  \textbf{Losses} \\
+\hline
+
+ Multivariate gaps &       CAE 1000 &             0 &             1 &                4 \\
+\hline
+ Multivariate gaps &        CAE 200 &             5 &             0 &                0 \\
+\hline
+ Multivariate gaps &        CAE 500 &             3 &             0 &                2 \\
+\hline
+        Single gap &       CAE 1000 &             0 &             1 &                4 \\
+\hline
+        Single gap &        CAE 200 &             4 &             0 &                1 \\
+\hline
+        Single gap &        CAE 500 &             2 &             0 &                3 \\
+\hline
+
+\end{tabular}
+\caption{Win-Tie-Losses table for Reconstruction obtained from Wilcoxon signed-rank teston AUPRC.}
+\label{tab:reconstruction_model_training_data_comparison}
+\end{table}

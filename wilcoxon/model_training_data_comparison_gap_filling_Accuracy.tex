@@ -1,0 +1,36 @@
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+
+    \textbf{Train} & \textbf{Model} &  \textbf{Win} &  \textbf{Tie} &  \textbf{Losses} \\
+\hline
+
+ Multivariate gaps &       CAE 1000 &             4 &             4 &                3 \\
+\hline
+ Multivariate gaps &        CAE 200 &             1 &             4 &                6 \\
+\hline
+ Multivariate gaps &        CAE 500 &             0 &             5 &                6 \\
+\hline
+ Multivariate gaps &       CNN 1000 &             8 &             1 &                2 \\
+\hline
+ Multivariate gaps &        CNN 200 &            10 &             1 &                0 \\
+\hline
+ Multivariate gaps &        CNN 500 &            10 &             1 &                0 \\
+\hline
+        Single gap &       CAE 1000 &             4 &             4 &                3 \\
+\hline
+        Single gap &        CAE 200 &             0 &             4 &                7 \\
+\hline
+        Single gap &        CAE 500 &             0 &             5 &                6 \\
+\hline
+        Single gap &       CNN 1000 &             4 &             5 &                2 \\
+\hline
+        Single gap &        CNN 200 &             0 &             8 &                3 \\
+\hline
+        Single gap &        CNN 500 &             0 &             8 &                3 \\
+\hline
+
+\end{tabular}
+\caption{Win-Tie-Losses table for Gap filling obtained from Wilcoxon signed-rank teston Accuracy.}
+\label{tab:gap_filling_model_training_data_comparison}
+\end{table}
