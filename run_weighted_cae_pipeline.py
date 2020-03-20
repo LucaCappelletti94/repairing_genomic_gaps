@@ -27,7 +27,7 @@ models = [
 
 weights = [
     10,
-    2,
+    #2,
 ]
 
 
@@ -44,18 +44,18 @@ def executor(build_model, window_size, weight):
                 weight=weight,
             )
         ):
-            model = build_model(
-                use_weighted=True,
-                _max = weight,
-            )
+            # model = build_model(
+            #     use_weighted=True,
+            #     _max = weight,
+            # )
             train, test = dataset(window_size)
-            path = "{}_with_weight_{}".format(dataset_name, weight)
-            model = train_model(model, train, test, path=path)
+            #path = "{}_with_weight_{}".format(dataset_name, weight)
+            #model = train_model(model, train, test, path=path)
 
 tasks = [
     (*model, weight)
     for model, weight in product(models, weights)
 ]
 
-with MyPool(4) as p:
+with MyPool(2) as p:
     p.starmap(executor, tasks)
