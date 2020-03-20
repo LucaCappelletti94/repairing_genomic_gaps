@@ -27,7 +27,7 @@ models = [
 
 weights = [
     10,
-    #2,
+    2,
 ]
 
 
@@ -38,25 +38,24 @@ def executor(build_model, window_size, weight):
     ]
     for dataset, dataset_name in datasets:
         with Notipy(
-            # task_name="Model {model_name} trained on {dataset_name} with max weight {weight}".format(
-            #     model_name=build_model.__name__,
-            #     dataset_name=dataset_name,
-            #     weight=weight,
-            # )
-            task_name=f"Rendering dataset {dataset_name} for {build_model.__name__}"
+            task_name="Model {model_name} trained on {dataset_name} with max weight {weight}".format(
+                model_name=build_model.__name__,
+                dataset_name=dataset_name,
+                weight=weight,
+            )
         ):
-            # model = build_model(
-            #     use_weighted=True,
-            #     _max = weight,
-            # )
+            model = build_model(
+                use_weighted=True,
+                _max = weight,
+            )
             train, test = dataset(window_size)
-            #path = "{}_with_weight_{}".format(dataset_name, weight)
-            #model = train_model(model, train, test, path=path)
+            path = "{}_with_weight_{}".format(dataset_name, weight)
+            model = train_model(model, train, test, path=path)
 
 tasks = [
     (*model, weight)
     for model, weight in product(models, weights)
 ]
 
-with MyPool(2) as p:
+with MyPool(4) as p:
     p.starmap(executor, tasks)
