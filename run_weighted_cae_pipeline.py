@@ -6,6 +6,18 @@ import multiprocessing as mp
 from notipy_me import Notipy
 from itertools import product
 
+class NoDaemonProcess(mp.Process):
+    # make 'daemon' attribute always return False
+    def _get_daemon(self):
+        return False
+    def _set_daemon(self, value):
+        pass
+    daemon = property(_get_daemon, _set_daemon)
+
+# We sub-class mp.pool.Pool instead of mp.Pool
+# because the latter is only a wrapper function, not a proper class.
+class MyPool(mp.pool.Pool):
+    Process = NoDaemonProcess
 
 models = [
     (cae_1000, 1000),
@@ -45,5 +57,5 @@ tasks = [
     for model, weight in product(models, weights)
 ]
 
-with mp.Pool(4) as p:
+with MyPool(4) as p:
     p.starmap(executor, tasks)
