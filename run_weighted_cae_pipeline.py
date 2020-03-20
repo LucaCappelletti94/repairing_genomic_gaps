@@ -1,3 +1,4 @@
+import setGPU
 from repairing_genomic_gaps import cae_1000, cae_500, cae_200
 from repairing_genomic_gaps import build_multivariate_dataset_cae, build_synthetic_dataset_cae
 from repairing_genomic_gaps import train_model
