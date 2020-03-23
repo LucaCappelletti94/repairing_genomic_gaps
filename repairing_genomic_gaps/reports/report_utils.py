@@ -1,7 +1,8 @@
+from tensorflow.keras import Model
+
 from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score
 import numpy as np
 from typing import Dict, List, Callable
-from tensorflow.keras import Model
 
 
 def get_central_nucleotides(predictions: np.ndarray) -> np.ndarray:

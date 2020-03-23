@@ -1,19 +1,22 @@
+
+import os
+import warnings
+import numpy as np
+import pandas as pd
+from tqdm.auto import tqdm
+from typing import Dict, List, Callable
+from tensorflow.keras import Model
+from tensorflow.keras.utils import Sequence
+
+from .report_utils import cae_report, cnn_report, flat_report
 from ..models import cae_200, cae_500, cae_1000, cnn_200, cnn_500, cnn_1000
 from ..utils import get_model_history_path, get_model_weights_path
 from ..datasets import build_multivariate_dataset_cae, build_synthetic_dataset_cae, build_biological_dataset_cae
 from ..datasets import build_multivariate_dataset_cnn, build_synthetic_dataset_cnn, build_biological_dataset_cnn
-import numpy as np
-import pandas as pd
-from tqdm.auto import tqdm
-import os
-from typing import Dict, List, Callable
-from tensorflow.keras.utils import Sequence
-from tensorflow.keras import Model
-from .report_utils import cae_report, cnn_report, flat_report
-import warnings
-from notipy_me import Notipy
 
 warnings.simplefilter("ignore")
+
+weights = [2, 10]
 
 models = {
     "cae": {
@@ -84,37 +87,45 @@ def build_report(model: Model, report: Callable, sequence: Sequence):
 
 
 def build_reports(root, **dataset_kwargs):
-    with Notipy():
-        for model_type in tqdm(models, desc="Model types", leave=False):
-            report = report_types[model_type]
-            for window_size, build_model in tqdm(models[model_type].items(), desc="Models", leave=False):
-                single_gap_dataset, multivariate_dataset, biological_dataset = datasets[model_type]
-                single_train, single_test = single_gap_dataset(window_size, **dataset_kwargs)
-                multivariate_train, multivariate_test = multivariate_dataset(window_size, **dataset_kwargs)
-                bio = biological_dataset(window_size)
-                model = build_model(verbose=False)
-                for weight_directory in tqdm(("single_gap", "multivariate_gaps"), desc="weights", leave=False):
-                    model.load_weights(get_model_weights_path(model, path=weight_directory))
-                    bar = tqdm(desc="Running reports", total=5, leave=False)
-                    execute_report(
-                        root, report, model, weight_directory, single_gap_dataset, "single gap test", single_test
+    for model_type in tqdm(models, desc="Model types", leave=False):
+        report = report_types[model_type]
+        for window_size, build_model in tqdm(models[model_type].items(), desc="Models", leave=False):
+            single_gap_dataset, multivariate_dataset, biological_dataset = datasets[model_type]
+            single_train, single_test = single_gap_dataset(window_size, **dataset_kwargs)
+            multivariate_train, multivariate_test = multivariate_dataset(window_size, **dataset_kwargs)
+            bio = biological_dataset(window_size)
+            model = build_model(verbose=False)
+
+            root_directories = ("single_gap", "multivariate_gaps")
+            if model_type == "cae":
+                for weight in weights:
+                    root_directories += (
+                        "single_gap_with_weight_%d"%weight, 
+                        "multivariate_gaps_with_weight_%d"%weight
                     )
-                    bar.update()
-                    execute_report(
-                        root, report, model, weight_directory, single_gap_dataset, "single gap train", single_train
-                    )
-                    bar.update()
-                    execute_report(
-                        root, report, model, weight_directory, multivariate_dataset, "multivariate gaps test", multivariate_test
-                    )
-                    bar.update()
-                    execute_report(
-                        root, report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
-                    )
-                    bar.update()
-                    execute_report(
-                        root, report, model, weight_directory, biological_dataset, "biological validation", bio
-                    )
-                    bar.update()
-                    bar.close()
-                    
+
+            for weight_directory in tqdm(root_directories, desc="weights", leave=False):
+                model.load_weights(get_model_weights_path(model, path=weight_directory))
+                bar = tqdm(desc="Running reports", total=5, leave=False)
+                execute_report(
+                    root, report, model, weight_directory, single_gap_dataset, "single gap test", single_test
+                )
+                bar.update()
+                execute_report(
+                    root, report, model, weight_directory, single_gap_dataset, "single gap train", single_train
+                )
+                bar.update()
+                execute_report(
+                    root, report, model, weight_directory, multivariate_dataset, "multivariate gaps test", multivariate_test
+                )
+                bar.update()
+                execute_report(
+                    root, report, model, weight_directory, multivariate_dataset, "multivariate gaps train", multivariate_train
+                )
+                bar.update()
+                execute_report(
+                    root, report, model, weight_directory, biological_dataset, "biological validation", bio
+                )
+                bar.update()
+                bar.close()
+                
