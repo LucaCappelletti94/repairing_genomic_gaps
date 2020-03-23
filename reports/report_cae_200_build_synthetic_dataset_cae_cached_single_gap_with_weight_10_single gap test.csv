@@ -1,0 +1,11 @@
+,model,trained_on,dataset,task,target,run_type,roc_auc_score,average_precision_score,accuracy_score
+0,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,reconstruction,all_nucleotides,single gap test,0.9995269052882023,0.9986519067932288,0.977533056640625
+1,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,reconstruction,adenine,single gap test,0.9994913347975725,0.9987859411464641,0.98955322265625
+2,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,reconstruction,cytosine,single gap test,0.9994459773968174,0.9980880517709865,0.99132783203125
+3,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,reconstruction,thymine,single gap test,0.9995977420103731,0.9990401166279725,0.990497705078125
+4,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,reconstruction,guanine,single gap test,0.9995026413436875,0.9982823131192395,0.99210439453125
+5,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap test,0.6777799420992533,0.4125788617482143,0.399150390625
+6,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,gap_filling,adenine,single gap test,0.6477423812900462,0.422085671179171,0.715224609375
+7,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,gap_filling,cytosine,single gap test,0.6958447843003315,0.39655414426426533,0.79583984375
+8,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,gap_filling,thymine,single gap test,0.6431311753970468,0.4214328525971409,0.71716796875
+9,cae_200,single_gap_with_weight_10,build_synthetic_dataset_cae_cached,gap_filling,guanine,single gap test,0.6959957247505919,0.3917848588452585,0.795498046875
