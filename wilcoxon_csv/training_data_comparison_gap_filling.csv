@@ -1,0 +1,4 @@
+Metric,Train1,Train2,Win,Tie,Losses,Pvalue
+Accuracy,Single gap,Multivariate gaps,0,0,1,2.352499062491537e-06
+AUPRC,Single gap,Multivariate gaps,0,0,1,0.0002924517392498051
+AUROC,Single gap,Multivariate gaps,0,0,1,0.0001301536115369823
