@@ -7,6 +7,7 @@ def cae_1000(
         use_weighted : bool = False,
         _min : float = 1.0,
         _max : float = 10.0,
+        return_encoder_and_decoder=False,
     ) -> Model:
     """Return autoencoder model for window sizes of 1000 nucleotides."""
     return build_autoencoder(
@@ -19,4 +20,5 @@ def cae_1000(
         use_weighted=use_weighted,
         _min=_min,
         _max=_max,
+        return_encoder_and_decoder=return_encoder_and_decoder,
     )

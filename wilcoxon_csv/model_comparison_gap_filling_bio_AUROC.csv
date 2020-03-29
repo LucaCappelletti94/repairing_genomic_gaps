@@ -1,0 +1,7 @@
+Model,Win,Tie,Losses
+CAE 1000,2,0,3
+CAE 200,1,0,4
+CAE 500,0,0,5
+CNN 1000,3,2,0
+CNN 200,3,1,1
+CNN 500,4,1,0
