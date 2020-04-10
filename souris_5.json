@@ -1,0 +1,35 @@
+{
+    "trained_on": "build_synthetic_dataset_cae_cached",
+    "evaluated_on": "build_multivariate_dataset_cae_cached",
+    "build_synthetic_dataset_cae_cached": {
+        "train": {
+            "train auroc": 0.8167548544337287,
+            "train auprc": 0.5369584979071647,
+            "train accuracy": 0.5284
+        },
+        "test": {
+            "test auroc": 0.5710995799242222,
+            "test auprc": 0.3038528153189536,
+            "test accuracy": 0.33405
+        }
+    },
+    "build_multivariate_dataset_cae_cached": {
+        "train": {
+            "train auroc": 0.5,
+            "train auprc": 0.24999999999999997,
+            "train accuracy": 0.2976
+        },
+        "test": {
+            "test auroc": 0.5,
+            "test auprc": 0.25,
+            "test accuracy": 0.28785
+        }
+    },
+    "BiologicalGapsSequence": {
+        "bio": {
+            "biological auroc": 0.5,
+            "biological auprc": 0.24999999999999997,
+            "biological accuracy": 0.7368421052631579
+        }
+    }
+}

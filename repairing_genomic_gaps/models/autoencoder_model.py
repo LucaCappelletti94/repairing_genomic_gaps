@@ -107,6 +107,7 @@ def build_autoencoder(
     use_weighted : bool = False,
     _min : float = 1.0,
     _max : float = 10.0,
+    return_encoder_and_decoder=False,
 ):
     inputs, encoder_shape, encoder = build_encoder(
         input_shape=input_shape,
@@ -148,5 +149,8 @@ def build_autoencoder(
         encoder.summary()
         decoder.summary()
         autoencoder.summary()
+        
+    if return_encoder_and_decoder:
+        return autoencoder, encoder, decoder
 
     return autoencoder
