@@ -1,0 +1,21 @@
+,model,neighbours,trained_on,dataset,task,target,run_type,roc_auc_score,average_precision_score,accuracy_score
+0,KNN imputer,5,single_gap,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap train,0.8167548544337287,0.5369584979071647,0.5284
+1,KNN imputer,5,single_gap,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap test,0.5710995799242222,0.3038528153189536,0.33405
+2,KNN imputer,5,single_gap,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps train,0.5,0.24999999999999997,0.2976
+3,KNN imputer,5,single_gap,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps test,0.5,0.25,0.28785
+4,KNN imputer,5,single_gap,build_biological_dataset_cae_cached,gap_filling,all_nucleotides,biological validation,0.5,0.24999999999999997,0.7368421052631579
+5,KNN imputer,10k,single_gap,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap train,0.6061800457935028,0.3296419133077042,0.3475
+6,KNN imputer,10k,single_gap,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap test,0.5866938634549796,0.31474268434380054,0.3299
+7,KNN imputer,10k,single_gap,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps train,0.5,0.24999999999999997,0.2976
+8,KNN imputer,10k,single_gap,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps test,0.5,0.25,0.28785
+9,KNN imputer,10k,single_gap,build_biological_dataset_cae_cached,gap_filling,all_nucleotides,biological validation,0.5,0.24999999999999997,0.7368421052631579
+10,KNN imputer,10k,multivariate_gaps,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap train,0.5,0.24999999999999997,0.2976
+11,KNN imputer,10k,multivariate_gaps,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap test,0.5,0.25,0.28785
+12,KNN imputer,10k,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps train,0.6048737547363888,0.3279426773088425,0.346925
+13,KNN imputer,10k,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps test,0.5847426089346487,0.3129027727785487,0.327575
+14,KNN imputer,10k,multivariate_gaps,build_biological_dataset_cae_cached,gap_filling,all_nucleotides,biological validation,0.5,0.24999999999999997,0.7368421052631579
+15,KNN imputer,5,multivariate_gaps,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap train,0.5,0.24999999999999997,0.2976
+16,KNN imputer,5,multivariate_gaps,build_synthetic_dataset_cae_cached,gap_filling,all_nucleotides,single gap test,0.5,0.25,0.28785
+17,KNN imputer,5,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps train,0.8159661676266389,0.5353479142992442,0.527225
+18,KNN imputer,5,multivariate_gaps,build_multivariate_dataset_cae_cached,gap_filling,all_nucleotides,multivariate gaps test,0.5695972220364564,0.3027401851355915,0.333325
+19,KNN imputer,5,multivariate_gaps,build_biological_dataset_cae_cached,gap_filling,all_nucleotides,biological validation,0.5,0.24999999999999997,0.7368421052631579
