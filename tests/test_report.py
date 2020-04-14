@@ -8,3 +8,4 @@ def test_report():
     #    testing_chromosomes=("chrM",),
     #    batch_size=1
     #)
+    pass
