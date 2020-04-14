@@ -1,0 +1,22 @@
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+
+   \textbf{Model} &  \textbf{Win} &  \textbf{Tie} &  \textbf{Losses} \\
+\hline
+
+         CAE 1000 &             2 &             1 &                1 \\
+\hline
+         CNN 1000 &             3 &             1 &                0 \\
+\hline
+ KNN imputer 1024 &             0 &             2 &                2 \\
+\hline
+  KNN imputer 10k &             0 &             2 &                2 \\
+\hline
+    KNN imputer 5 &             0 &             4 &                0 \\
+\hline
+
+\end{tabular}
+\caption{Win-Tie-Losses table for Best comparison obtained from Wilcoxon signed-rank teston Accuracy.}
+\label{tab:best_comparison_knn_vs_cae_vs_cnn}
+\end{table}

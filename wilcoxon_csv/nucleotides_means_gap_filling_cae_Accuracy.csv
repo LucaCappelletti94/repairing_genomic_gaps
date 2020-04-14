@@ -1,5 +1,5 @@
 None,Metric,Target,Mean
-0,Accuracy,Adenine,0.7120397949218752
+0,Accuracy,Adenine,0.712039794921875
 1,Accuracy,Cytosine,0.7913818359375001
 2,Accuracy,Thymine,0.7049682617187499
 3,Accuracy,Guanine,0.7978833007812499

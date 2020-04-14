@@ -1,13 +1,13 @@
 Train,Model,Win,Tie,Losses
 Multivariate gaps,CAE 1000,4,4,3
 Multivariate gaps,CAE 200,1,4,6
-Multivariate gaps,CAE 500,0,5,6
+Multivariate gaps,CAE 500,0,6,5
 Multivariate gaps,CNN 1000,8,1,2
 Multivariate gaps,CNN 200,10,1,0
-Multivariate gaps,CNN 500,10,1,0
+Multivariate gaps,CNN 500,9,2,0
 Single gap,CAE 1000,4,4,3
 Single gap,CAE 200,0,4,7
-Single gap,CAE 500,0,5,6
-Single gap,CNN 1000,4,5,2
-Single gap,CNN 200,0,8,3
-Single gap,CNN 500,0,8,3
+Single gap,CAE 500,0,6,5
+Single gap,CNN 1000,2,6,3
+Single gap,CNN 200,0,9,2
+Single gap,CNN 500,0,9,2

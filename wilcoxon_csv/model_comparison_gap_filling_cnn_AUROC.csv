@@ -1,4 +1,4 @@
 Model,Win,Tie,Losses
 CNN 1000,0,2,0
-CNN 200,0,1,1
-CNN 500,1,1,0
+CNN 200,0,2,0
+CNN 500,0,2,0
