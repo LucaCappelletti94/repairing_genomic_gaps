@@ -5,6 +5,8 @@ repairing_genomic_gaps
 
 Experiment on the possibility of repairing genomic gaps using auto-encoders.
 
+`The full paper is available in open access here. <https://www.mdpi.com/2073-431X/9/2/37>`_
+
 Tests Coverage
 ----------------------------------------------
 Since some software handling coverages sometime
