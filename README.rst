@@ -1,17 +1,9 @@
 repairing_genomic_gaps
 =========================================================================================
 |travis| |sonar_quality| |sonar_maintainability| |codacy|
-|code_climate_maintainability| |pip| |downloads|
+|code_climate_maintainability|
 
 Experiment on the possibility of repairing genomic gaps using auto-encoders.
-
-How do I install this package?
-----------------------------------------------
-As usual, just download it using pip:
-
-.. code:: shell
-
-    pip install repairing_genomic_gaps
 
 Tests Coverage
 ----------------------------------------------
@@ -42,14 +34,6 @@ Experiment on the possibility of repairing genomic gaps using auto-encoders.
 .. |coveralls| image:: https://coveralls.io/repos/github/LucaCappelletti94/repairing_genomic_gaps/badge.svg?branch=master
     :target: https://coveralls.io/github/LucaCappelletti94/repairing_genomic_gaps?branch=master
     :alt: Coveralls Coverage
-
-.. |pip| image:: https://badge.fury.io/py/repairing_genomic_gaps.svg
-    :target: https://badge.fury.io/py/repairing_genomic_gaps
-    :alt: Pypi project
-
-.. |downloads| image:: https://pepy.tech/badge/repairing_genomic_gaps
-    :target: https://pepy.tech/badge/repairing_genomic_gaps
-    :alt: Pypi total project downloads
 
 .. |codacy| image:: https://api.codacy.com/project/badge/Grade/002ca2124c1441cd852336b07088c282
     :target: https://www.codacy.com/manual/LucaCappelletti94/repairing_genomic_gaps?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=LucaCappelletti94/repairing_genomic_gaps&amp;utm_campaign=Badge_Grade
